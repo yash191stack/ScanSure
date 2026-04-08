@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './Components/Navbar';
+import Footer from './Components/Footer';
+import Home from './Pages/Home';
+import Result from './Pages/Result';
+import About from './Pages/About';
+import HowItWorks from './Pages/HowItWorks';
+import Awareness from './Pages/Awareness';
+import Insights from './Pages/Insights';
+import Alternatives from './Pages/Alternatives';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Hello We are starting our project
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/result" element={<Result />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/how" element={<HowItWorks />} />
+            <Route path="/awareness" element={<Awareness />} />
+            <Route path="/insights" element={<Insights />} />
+            <Route path="/alternatives" element={<Alternatives />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 

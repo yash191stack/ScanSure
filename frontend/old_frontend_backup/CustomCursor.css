@@ -1,0 +1,59 @@
+.cursor-main {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 255, 136, 0.9);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: opacity 0.2s ease;
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.6), inset 0 0 10px rgba(0, 217, 255, 0.4), 0 0 25px rgba(0, 255, 136, 0.3);
+}
+
+.cursor-glow {
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  border: 1px solid rgba(0, 217, 255, 0.5);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 30px rgba(0, 217, 255, 0.4), 0 0 50px rgba(0, 255, 136, 0.2);
+}
+
+.cursor-trail {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, rgba(0, 255, 136, 0.7), rgba(0, 217, 255, 0.3));
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9997;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 15px rgba(0, 255, 136, 0.5), 0 0 25px rgba(0, 217, 255, 0.2);
+  animation: cursorFade 0.8s ease-out forwards;
+}
+
+@keyframes cursorFade {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    box-shadow: 0 0 15px rgba(0, 255, 136, 0.5), 0 0 25px rgba(0, 217, 255, 0.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.2);
+  }
+}
+
+/* Show default cursor on hover of interactive elements */
+button:hover,
+a:hover,
+input:hover,
+textarea:hover,
+.clickable:hover {
+  cursor: pointer;
+}

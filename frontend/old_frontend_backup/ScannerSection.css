@@ -1,0 +1,327 @@
+.scanner-section {
+  position: relative;
+  padding: 80px 40px;
+  background: rgba(10, 14, 39, 0.8);
+  border-top: 1px solid rgba(0, 255, 136, 0.15);
+  border-bottom: 1px solid rgba(0, 255, 136, 0.15);
+}
+
+.scanner-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 60px;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.section-title {
+  font-size: 48px;
+  font-weight: 800;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.scanner-card {
+  background: rgba(15, 12, 41, 0.6);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 20px;
+  padding: 40px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  animation: fadeIn 0.8s ease-out 0.2s backwards;
+}
+
+.scanner-tabs {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 40px;
+  border-bottom: 2px solid rgba(0, 255, 136, 0.2);
+  overflow-x: auto;
+  padding-bottom: 15px;
+}
+
+.tab-btn {
+  position: relative;
+  padding: 12px 24px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tab-btn:hover {
+  color: #00d9ff;
+}
+
+.tab-btn.active {
+  color: #00d9ff;
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -17px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00ff88, #00d9ff);
+}
+
+.tab-icon {
+  font-size: 20px;
+}
+
+.scanner-content {
+  min-height: 300px;
+  margin-bottom: 30px;
+  animation: fadeIn 0.6s ease-out;
+}
+
+.upload-section,
+.manual-section,
+.barcode-section {
+  animation: fadeIn 0.4s ease-out;
+}
+
+.upload-area {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 217, 255, 0.05) 100%);
+  border: 2px dashed rgba(0, 217, 255, 0.5);
+  border-radius: 16px;
+  padding: 60px 40px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-area:hover {
+  border-color: #00d9ff;
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.2) 0%, rgba(0, 217, 255, 0.1) 100%);
+}
+
+.upload-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.upload-area h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.upload-area p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 30px;
+}
+
+.file-input {
+  display: none;
+}
+
+.upload-label {
+  display: inline-block;
+  padding: 12px 40px;
+  background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.upload-label:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+}
+
+.file-preview {
+  margin-top: 20px;
+  padding: 15px 20px;
+  background: rgba(0, 217, 255, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  border-radius: 8px;
+  color: #00d9ff;
+  font-weight: 600;
+}
+
+.ingredient-input {
+  width: 100%;
+  padding: 20px;
+  background: rgba(10, 10, 10, 0.5);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  border-radius: 12px;
+  color: #fff;
+  font-size: 16px;
+  font-family: inherit;
+  resize: vertical;
+  transition: all 0.3s ease;
+}
+
+.ingredient-input:focus {
+  outline: none;
+  border-color: #00d9ff;
+  box-shadow: 0 0 20px rgba(0, 217, 255, 0.2);
+}
+
+.ingredient-input::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.manual-hints {
+  margin-top: 15px;
+  padding: 10px;
+  font-size: 14px;
+  color: rgba(0, 217, 255, 0.8);
+}
+
+.barcode-placeholder {
+  background: linear-gradient(135deg, rgba(0, 255, 136, 0.1) 0%, rgba(0, 217, 255, 0.05) 100%);
+  border: 2px dashed rgba(0, 217, 255, 0.5);
+  border-radius: 16px;
+  padding: 60px 40px;
+  text-align: center;
+}
+
+.barcode-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.barcode-placeholder h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.barcode-placeholder p {
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 30px;
+}
+
+.btn-camera {
+  padding: 12px 40px;
+  background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-camera:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 255, 136, 0.4);
+}
+
+.product-type-selector {
+  margin-bottom: 30px;
+}
+
+.product-type-selector label {
+  display: block;
+  margin-bottom: 15px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+.product-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.product-btn {
+  padding: 10px 20px;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid rgba(0, 255, 136, 0.3);
+  color: #00d9ff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.product-btn:hover {
+  background: rgba(0, 217, 255, 0.1);
+  border-color: #00d9ff;
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.2);
+}
+
+.btn-scan {
+  width: 100%;
+  padding: 18px;
+  background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  transition: all 0.3s ease;
+}
+
+.btn-scan:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 255, 136, 0.4);
+}
+
+.scan-icon {
+  font-size: 22px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .scanner-section {
+    padding: 60px 20px;
+  }
+
+  .scanner-card {
+    padding: 30px 20px;
+  }
+
+  .section-title {
+    font-size: 36px;
+  }
+
+  .upload-area,
+  .barcode-placeholder {
+    padding: 40px 20px;
+  }
+
+  .upload-icon,
+  .barcode-icon {
+    font-size: 48px;
+  }
+
+  .scanner-tabs {
+    flex-wrap: wrap;
+  }
+}

@@ -1,11 +1,8 @@
-const express=require('express');
-const router=express.Router();
-const {analyzeIngrediants}= require('/controllers/analysisController');
+const express = require('express');
+const router = express.Router();
+const { analyzeIngredients } = require('../controllers/analysisController');
 
-//route:post -->api/analyze
+// route: POST --> /api/analyze
+router.post('/analyze', analyzeIngredients);
 
-router.post('/analyze',analyzeIngrediants);
-
-
-
-module.exports=router;
+module.exports = router;
