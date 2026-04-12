@@ -5,9 +5,8 @@ import { Leaf, Droplets, Sun, Sparkles, ArrowRight, ShieldCheck, CheckCircle2, C
 const alternativesData = [
   {
     category: "Skin & Personal Care",
-    icon: <Droplets className="text-blue-500" size={24} />,
-    color: "from-blue-400 to-cyan-400",
-    bgLight: "bg-blue-50",
+    icon: <Droplets size={24} />,
+    color: "bg-primary",
     items: [
       {
         bad: "Harsh Face Washes (with SLS & Parabens)",
@@ -34,9 +33,8 @@ const alternativesData = [
   },
   {
     category: "Household Cleaners",
-    icon: <Sparkles className="text-purple-500" size={24} />,
-    color: "from-purple-400 to-fuchsia-400",
-    bgLight: "bg-purple-50",
+    icon: <Sparkles size={24} />,
+    color: "bg-secondary",
     items: [
       {
         bad: "Toxic Floor Cleaners (Ammonia, Bleach, Phthalates)",
@@ -56,9 +54,8 @@ const alternativesData = [
   },
   {
     category: "Food & Diet",
-    icon: <Leaf className="text-emerald-500" size={24} />,
-    color: "from-emerald-400 to-teal-400",
-    bgLight: "bg-emerald-50",
+    icon: <Leaf size={24} />,
+    color: "bg-accent",
     items: [
       {
         bad: "Refined Sugar & Artificial Sweeteners (Aspartame)",
@@ -82,23 +79,23 @@ const SwitchCard = ({ bad, good, why, time, cost }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-all">
+    <div className={`bg-white border-4 border-black mb-4 shadow-[6px_6px_0px_#000] transition-all ${isOpen ? 'translate-x-[-2px] translate-y-[-2px] shadow-[8px_8px_0px_#000]' : ''}`}>
       <div 
-        className="p-5 cursor-pointer flex justify-between items-center"
+        className="p-5 cursor-pointer flex justify-between items-center hover:bg-gray-50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex-1">
-          <div className="flex items-center gap-3 mb-2">
-            <span className="text-xs font-bold px-2 py-1 bg-red-50 text-red-600 rounded-md uppercase tracking-wide">AVOID</span>
-            <span className="text-sm font-medium text-slate-600 line-through decoration-red-400">{bad}</span>
+          <div className="flex items-center gap-3 mb-3">
+            <span className="text-[10px] font-black px-2 py-0.5 bg-red-500 text-white border-2 border-black uppercase italic">AVOID</span>
+            <span className="text-sm font-black text-gray-400 line-through decoration-black uppercase italic">{bad}</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-xs font-bold px-2 py-1 bg-emerald-50 text-emerald-600 rounded-md uppercase tracking-wide flex items-center gap-1"><CheckCircle2 size={12}/> CHOOSE</span>
-            <span className="text-base font-bold text-slate-900">{good}</span>
+            <span className="text-[10px] font-black px-2 py-0.5 bg-primary text-black border-2 border-black uppercase italic flex items-center gap-1"><CheckCircle2 size={12}/> CHOOSE</span>
+            <span className="text-lg font-black text-black uppercase tracking-tighter italic">{good}</span>
           </div>
         </div>
-        <div className="ml-4 text-slate-400">
-          {isOpen ? <ChevronUp /> : <ChevronDown />}
+        <div className="ml-4 text-black border-2 border-black p-1">
+          {isOpen ? <ChevronUp size={20}/> : <ChevronDown size={20}/>}
         </div>
       </div>
       
@@ -108,15 +105,15 @@ const SwitchCard = ({ bad, good, why, time, cost }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden bg-slate-50 border-t border-slate-100"
+            className="overflow-hidden border-t-4 border-black bg-gray-50"
           >
-            <div className="p-5">
-              <p className="text-sm text-slate-700 leading-relaxed mb-4">
+            <div className="p-6">
+              <p className="text-base text-black font-bold leading-tight uppercase italic mb-6">
                 <strong>Why switch?</strong> {why}
               </p>
-              <div className="flex gap-4 text-xs font-semibold text-slate-500">
-                <span className="flex items-center gap-1"><Sun size={14} className="text-amber-500"/> {time}</span>
-                <span className="flex items-center gap-1 text-emerald-600 border border-emerald-200 bg-emerald-50 px-2 py-0.5 rounded-full">{cost}</span>
+              <div className="flex gap-4 text-xs font-black uppercase">
+                <span className="flex items-center gap-2 bg-white border-2 border-black px-2 py-1 shadow-[2px_2px_0px_#000]"><Sun size={14} className="text-orange-500"/> {time}</span>
+                <span className="flex items-center gap-2 bg-primary text-black border-2 border-black px-2 py-1 shadow-[2px_2px_0px_#000]">{cost}</span>
               </div>
             </div>
           </motion.div>
@@ -128,44 +125,48 @@ const SwitchCard = ({ bad, good, why, time, cost }) => {
 
 const Alternatives = () => {
   return (
-    <div className="pt-32 pb-24 px-4 md:px-8 max-w-5xl mx-auto min-h-screen">
+    <div className="pt-20 pb-24 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
       {/* HEADER */}
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-16"
+        className="text-center mb-24"
       >
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-100 text-emerald-600 text-xs font-bold tracking-wider uppercase mb-6">
-          <Leaf size={14} /> The Natural Way
+        <div className="inline-flex items-center gap-2 px-6 py-2 bg-black text-white border-4 border-black font-black tracking-widest uppercase text-sm mb-10 shadow-[6px_6px_0px_#A3E635] -rotate-1">
+          <Leaf size={18} /> THE NATURAL WAY
         </div>
-        <h1 className="text-4xl md:text-6xl font-black text-slate-900 tracking-tighter leading-tight mb-4">
+        <h1 className="text-6xl md:text-9xl font-black text-black tracking-tighter leading-none mb-10 uppercase italic">
           NATURE'S <br />
-          <span className="bg-gradient-to-r from-emerald-500 to-teal-500 bg-clip-text text-transparent">ALTERNATIVES.</span>
+          <span className="bg-primary px-4 border-4 border-black">ALTERNATIVES.</span>
         </h1>
-        <p className="text-slate-600 text-lg max-w-2xl mx-auto leading-relaxed">
-          You don't need toxic chemicals to live well. Discover simple, effective, and natural replacements for everyday hazardous products.
+        <p className="text-black text-xl font-bold max-w-4xl mx-auto leading-tight uppercase italic">
+          YOU DON'T NEED TOXIC CHEMICALS TO LIVE WELL. DISCOVER SIMPLE, EFFECTIVE, AND NATURAL REPLACEMENTS FOR EVERYDAY HAZARDOUS PRODUCTS.
         </p>
       </motion.div>
 
       {/* CONTENT */}
-      <div className="space-y-12">
+      <div className="space-y-20">
         {alternativesData.map((section, idx) => (
           <motion.div 
             key={idx}
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            transition={{ delay: idx * 0.1 }}
-            className={`rounded-[2rem] p-6 md:p-8 border border-white shadow-xl ${section.bgLight}`}
+            className={`border-[6px] border-black bg-white shadow-[15px_15px_0px_#000] overflow-hidden`}
           >
-            <div className="flex items-center gap-4 mb-8">
-              <div className={`p-4 rounded-2xl bg-white shadow-sm flex items-center justify-center`}>
-                {section.icon}
-              </div>
-              <h2 className="text-2xl font-black text-slate-800">{section.category}</h2>
+            <div className={`p-8 border-b-6 border-black ${section.color} flex items-center justify-between`}>
+                <div className="flex items-center gap-6">
+                  <div className={`w-16 h-16 border-4 border-black bg-white flex items-center justify-center shadow-[4px_4px_0px_#000]`}>
+                    {section.icon}
+                  </div>
+                  <h2 className="text-4xl font-black text-black uppercase tracking-tighter italic">{section.category}</h2>
+                </div>
+                <div className="text-5xl opacity-20 font-black italic select-none hidden md:block">
+                    CATEGORY {idx + 1}
+                </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 bg-gray-50">
               {section.items.map((item, i) => (
                 <SwitchCard key={i} {...item} />
               ))}
@@ -176,24 +177,25 @@ const Alternatives = () => {
 
       {/* BOTTOM BANNER */}
       <motion.div 
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        className="mt-20 p-10 rounded-[2rem] bg-slate-900 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xl"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        className="mt-32 p-12 border-[6px] border-black bg-black text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-[15px_15px_0px_white] rotate-1"
       >
-        <div className="max-w-xl">
-          <h3 className="text-2xl font-black mb-3 flex items-center gap-3">
-            <ShieldCheck className="text-emerald-400" /> Start Small. Live Better.
+        <div className="max-w-2xl">
+          <h3 className="text-4xl font-black mb-6 flex items-center gap-4 uppercase italic tracking-tighter">
+            <ShieldCheck className="text-primary" size={40} /> START SMALL. LIVE BETTER.
           </h3>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            You don't have to change everything overnight. Pick one product you use daily, like toothpaste or face wash, and swap it for a natural alternative this week.
+          <p className="text-gray-300 text-lg font-bold uppercase italic leading-tight">
+            YOU DON'T HAVE TO CHANGE EVERYTHING OVERNIGHT. PICK ONE PRODUCT YOU USE DAILY AND SWAP IT FOR A NATURAL ALTERNATIVE THIS WEEK.
           </p>
         </div>
-        <button className="shrink-0 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-emerald-950 font-black rounded-full transition-all flex items-center gap-2">
-          Scan Your Products <ArrowRight size={18} />
-        </button>
+        <a href="/" className="shrink-0 px-10 py-5 bg-primary text-black font-black border-4 border-black shadow-[6px_6px_0px_#A3E635] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all text-2xl uppercase italic flex items-center gap-3">
+          SCAN NOW <ArrowRight size={24} />
+        </a>
       </motion.div>
     </div>
   );
 };
 
 export default Alternatives;
+

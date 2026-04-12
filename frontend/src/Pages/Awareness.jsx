@@ -11,10 +11,10 @@ const productCategories = [
     id: 'food',
     icon: '🍿',
     label: 'Packaged Food',
-    color: 'from-orange-400 to-rose-500',
-    bgLight: 'bg-orange-50',
-    border: 'border-orange-200',
-    textColor: 'text-orange-600',
+    color: 'bg-primary',
+    bgLight: 'bg-white',
+    border: 'border-black',
+    textColor: 'text-black',
     products: [
       {
         name: '🍪 Namkeen Biscuits (e.g., Parle-G, Britannia Marie)',
@@ -64,10 +64,10 @@ const productCategories = [
     id: 'skincare',
     icon: '🧴',
     label: 'Face & Skin Care',
-    color: 'from-pink-400 to-purple-500',
-    bgLight: 'bg-pink-50',
-    border: 'border-pink-200',
-    textColor: 'text-pink-600',
+    color: 'bg-secondary',
+    bgLight: 'bg-white',
+    border: 'border-black',
+    textColor: 'text-black',
     products: [
       {
         name: '🧴 Garnier Bright Complete Face Wash',
@@ -117,10 +117,10 @@ const productCategories = [
     id: 'household',
     icon: '🏠',
     label: 'Household & Daily Use',
-    color: 'from-blue-400 to-cyan-500',
-    bgLight: 'bg-blue-50',
-    border: 'border-blue-200',
-    textColor: 'text-blue-600',
+    color: 'bg-accent',
+    bgLight: 'bg-white',
+    border: 'border-black',
+    textColor: 'text-black',
     products: [
       {
         name: '🧼 Antibacterial Soap (e.g., Dettol, Lifebuoy)',
@@ -158,10 +158,10 @@ const productCategories = [
     id: 'drink',
     icon: '🥤',
     label: 'Beverages & Drinks',
-    color: 'from-green-400 to-teal-500',
-    bgLight: 'bg-green-50',
-    border: 'border-green-200',
-    textColor: 'text-green-600',
+    color: 'bg-green-400',
+    bgLight: 'bg-white',
+    border: 'border-black',
+    textColor: 'text-black',
     products: [
       {
         name: '🥤 Cola / Soft Drinks (Coca-Cola, Pepsi)',
@@ -188,17 +188,11 @@ const productCategories = [
   }
 ];
 
-const fadeIn = {
-  initial: { opacity: 0, y: 30 },
-  animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.5 }
-};
-
 const riskConfig = {
-  'Critical': { color: 'bg-red-600 text-white', icon: '☠️', label: 'CRITICAL RISK' },
+  'Critical': { color: 'bg-red-600 text-white', icon: '☠️', label: 'CRITICAL' },
   'High': { color: 'bg-orange-500 text-white', icon: '⚠️', label: 'HIGH RISK' },
-  'Medium': { color: 'bg-yellow-400 text-slate-900', icon: '⚡', label: 'MODERATE RISK' },
-  'Low': { color: 'bg-green-400 text-slate-900', icon: 'ℹ️', label: 'LOW RISK' },
+  'Medium': { color: 'bg-yellow-400 text-black', icon: '⚡', label: 'MODERATE' },
+  'Low': { color: 'bg-lime-400 text-black', icon: 'ℹ️', label: 'LOW RISK' },
 };
 
 // ============================================================
@@ -208,18 +202,18 @@ const riskConfig = {
 function ChemicalRow({ chem, effect, dose, risk }) {
   const cfg = riskConfig[risk] || riskConfig['Low'];
   return (
-    <div className="bg-white rounded-2xl shadow-sm border p-5 space-y-3">
+    <div className="bg-white border-2 border-black p-5 space-y-3 shadow-[4px_4px_0px_#000]">
       <div className="flex items-start justify-between gap-3 flex-wrap">
-        <h4 className="font-black text-slate-800 text-sm md:text-base">{chem}</h4>
-        <span className={`text-xs font-black px-3 py-1 rounded-full whitespace-nowrap ${cfg.color}`}>
-          {cfg.icon} {cfg.label}
+        <h4 className="font-black text-black text-base uppercase tracking-tighter italic">{chem}</h4>
+        <span className={`text-[10px] font-black px-2 py-0.5 border-2 border-black whitespace-nowrap uppercase ${cfg.color}`}>
+           {cfg.label}
         </span>
       </div>
-      <p className="text-slate-600 text-sm leading-relaxed">{effect}</p>
-      <div className="flex items-center gap-2 text-xs font-semibold text-slate-500">
-        <Clock size={13} />
-        <span>Risky at:</span>
-        <span className="text-indigo-700 font-bold">{dose}</span>
+      <p className="text-black font-bold text-sm leading-tight uppercase italic">{effect}</p>
+      <div className="flex items-center gap-2 text-xs font-black text-gray-500 uppercase">
+        <Clock size={14} className="text-black" />
+        <span>RISKY AT:</span>
+        <span className="text-black bg-yellow-200 px-1 border-b-2 border-black font-black">{dose}</span>
       </div>
     </div>
   );
@@ -228,18 +222,18 @@ function ChemicalRow({ chem, effect, dose, risk }) {
 function ProductCard({ name, brand, chemicals, realTalk }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border border-slate-200 rounded-3xl shadow-md overflow-hidden bg-white hover:shadow-lg transition-shadow">
+    <div className={`border-4 border-black mb-4 overflow-hidden bg-white shadow-[6px_6px_0px_#000] transition-all ${open ? 'translate-x-[-2px] translate-y-[-2px] shadow-[8px_8px_0px_#000]' : ''}`}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full text-left flex items-start justify-between gap-4 p-6 hover:bg-slate-50 transition-colors"
+        className="w-full text-left flex items-start justify-between gap-4 p-5 hover:bg-gray-100 transition-colors"
       >
         <div>
-          <h3 className="font-black text-slate-900 text-base md:text-lg leading-tight">{name}</h3>
-          <p className="text-xs font-semibold text-slate-400 mt-1">{brand}</p>
-          <p className="text-xs text-slate-500 mt-1">{chemicals.length} harmful chemicals found</p>
+          <h3 className="font-black text-black text-lg md:text-xl leading-none uppercase tracking-tighter">{name}</h3>
+          <p className="text-xs font-black text-gray-400 mt-2 uppercase italic">BRAND: {brand}</p>
+          <p className="text-[10px] font-black text-white bg-black w-fit px-2 py-0.5 mt-2 uppercase">{chemicals.length} DANGER POINTS</p>
         </div>
-        <span className="mt-1 shrink-0 text-indigo-500">
-          {open ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
+        <span className="mt-1 shrink-0 text-black border-2 border-black p-1">
+          {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
         </span>
       </button>
 
@@ -249,15 +243,14 @@ function ProductCard({ name, brand, chemicals, realTalk }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.35 }}
-            className="overflow-hidden"
+            className="overflow-hidden border-t-2 border-black"
           >
-            <div className="px-6 pb-6 space-y-4">
-              <div className="space-y-3">
+            <div className="p-5 space-y-4 bg-gray-50">
+              <div className="grid grid-cols-1 gap-4">
                 {chemicals.map((c, i) => <ChemicalRow key={i} {...c} />)}
               </div>
-              <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
-                <p className="text-sm font-semibold text-amber-800 leading-relaxed">{realTalk}</p>
+              <div className="bg-primary border-4 border-black p-5 shadow-[4px_4px_0px_#000]">
+                <p className="text-sm md:text-base font-black text-black leading-tight uppercase italic">{realTalk}</p>
               </div>
             </div>
           </motion.div>
@@ -267,16 +260,16 @@ function ProductCard({ name, brand, chemicals, realTalk }) {
   );
 }
 
-function CategorySection({ icon, label, color, bgLight, border, textColor, products }) {
+function CategorySection({ icon, label, color, products }) {
   return (
-    <div className={`rounded-3xl overflow-hidden border ${border} ${bgLight} shadow-md`}>
-      <div className={`p-6 bg-gradient-to-r ${color}`}>
-        <div className="flex items-center gap-3">
-          <span className="text-4xl">{icon}</span>
-          <h2 className="text-2xl font-black text-white">{label}</h2>
+    <div className="border-[6px] border-black bg-white shadow-[12px_12px_0px_#000] overflow-hidden">
+      <div className={`p-6 border-b-4 border-black ${color}`}>
+        <div className="flex items-center gap-4">
+          <span className="text-5xl border-4 border-black bg-white p-2 shadow-[4px_4px_0px_#000]">{icon}</span>
+          <h2 className="text-4xl font-black text-black uppercase tracking-tighter italic">{label}</h2>
         </div>
       </div>
-      <div className="p-6 space-y-4">
+      <div className="p-6">
         {products.map((p, i) => <ProductCard key={i} {...p} />)}
       </div>
     </div>
@@ -295,50 +288,45 @@ const Awareness = () => {
     : productCategories.filter(c => c.id === activeTab);
 
   return (
-    <div className="pt-32 pb-24 px-4 md:px-8 max-w-6xl mx-auto min-h-screen">
+    <div className="pt-20 pb-24 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
 
       {/* HERO */}
-      <motion.div {...fadeIn} className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-rose-100 border border-rose-200 text-rose-700 text-xs font-black tracking-widest uppercase mb-6 shadow-sm">
-          <ShieldAlert size={15} /> Chemical Awareness Hub
+      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-20">
+        <div className="inline-flex items-center gap-2 px-6 py-2 bg-black text-white border-4 border-black font-black tracking-widest uppercase text-sm mb-10 shadow-[6px_6px_0px_#FFD100] rotate-1">
+          <ShieldAlert size={18} /> CHEMICAL AWARENESS HUB
         </div>
-        <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-indigo-950 leading-tight">
+        <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-black leading-none uppercase italic">
           KNOW WHAT YOU<br />
-          <span className="bg-gradient-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent">EAT, WEAR & USE.</span>
+          <span className="text-primary italic">EAT.</span> <span className="text-secondary">USE.</span> <span className="text-accent underline decoration-black">WEAR.</span>
         </h1>
-        <p className="max-w-2xl mx-auto text-slate-600 mt-6 text-lg leading-relaxed font-medium">
-          From namkeen biscuits to Garnier facewash — everyday products carry chemicals that companies don't want you to know about. Awareness is your superpower. 🔬
+        <p className="max-w-4xl mx-auto text-black mt-10 text-xl font-bold leading-tight uppercase italic">
+          FROM NAMKEEN BISCUITS TO GARNIER FACEWASH — EVERYDAY PRODUCTS CARRY CHEMICALS THAT COMPANIES DON'T WANT YOU TO KNOW ABOUT. AWARENESS IS YOUR SUPERPOWER. 🔬
         </p>
       </motion.div>
 
       {/* STATS BANNER */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.3 }}
-        className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-14"
-      >
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
         {[
-          { icon: '🧪', stat: '10,000+', label: 'Chemicals in products' },
-          { icon: '🚫', stat: '1,400+', label: 'Banned in EU (allowed in India)' },
-          { icon: '📦', stat: '90%', label: 'Packaged foods have additives' },
-          { icon: '💊', stat: '2.5 kg', label: 'Lipstick eaten in a lifetime' },
+          { icon: '🧪', stat: '10,000+', label: 'Chemicals in products', color: 'bg-primary' },
+          { icon: '🚫', stat: '1,400+', label: 'Banned in EU', color: 'bg-secondary' },
+          { icon: '📦', stat: '90%', label: 'Food additives used', color: 'bg-accent' },
+          { icon: '💄', stat: '2.5 kg', label: 'Lipstick eaten/life', color: 'bg-green-400' },
         ].map((s, i) => (
-          <div key={i} className="glass bg-white/70 rounded-2xl p-5 text-center shadow-sm border-white">
-            <div className="text-3xl mb-2">{s.icon}</div>
-            <div className="text-2xl font-black text-indigo-900">{s.stat}</div>
-            <div className="text-xs font-semibold text-slate-500 mt-1">{s.label}</div>
+          <div key={i} className={`border-4 border-black p-6 text-center shadow-[8px_8px_0px_#000] rotate-${i % 2 === 0 ? '1' : '-1'} ${s.color}`}>
+            <div className="text-4xl mb-3">{s.icon}</div>
+            <div className="text-4xl font-black text-black tracking-tighter italic leading-none">{s.stat}</div>
+            <div className="text-[10px] font-black text-black mt-2 uppercase tracking-[0.1em]">{s.label}</div>
           </div>
         ))}
-      </motion.div>
+      </div>
 
       {/* TABS */}
-      <div className="flex gap-3 flex-wrap mb-10">
-        {[{ id: 'all', label: '🌐 All Products' }, ...productCategories.map(c => ({ id: c.id, label: `${c.icon} ${c.label}` }))].map(tab => (
+      <div className="flex gap-4 flex-wrap mb-12 justify-center">
+        {[{ id: 'all', label: '🌐 All Categories' }, ...productCategories.map(c => ({ id: c.id, label: `${c.icon} ${c.label}` }))].map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 rounded-full text-sm font-black transition-all border ${activeTab === tab.id ? 'bg-indigo-600 text-white border-indigo-600 shadow-lg' : 'bg-white text-indigo-700 border-indigo-200 hover:border-indigo-400'}`}
+            className={`px-6 py-3 border-4 border-black text-base font-black transition-all uppercase italic shadow-[4px_4px_0px_#000] active:shadow-none active:translate-x-1 active:translate-y-1 ${activeTab === tab.id ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}
           >
             {tab.label}
           </button>
@@ -346,13 +334,13 @@ const Awareness = () => {
       </div>
 
       {/* PRODUCT CATEGORIES */}
-      <div className="space-y-10">
+      <div className="space-y-16">
         {filtered.map((cat, i) => (
           <motion.div
             key={cat.id}
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
           >
             <CategorySection {...cat} />
           </motion.div>
@@ -360,69 +348,63 @@ const Awareness = () => {
       </div>
 
       {/* TIP BOX */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-        className="mt-16 grid md:grid-cols-2 gap-8"
-      >
-        <div className="glass bg-white/70 p-8 rounded-3xl shadow-md border-white space-y-5">
-          <div className="flex items-center gap-3 text-emerald-600 font-black text-xl">
-            <Info size={28} /> Quick Safety Tips
+      <div className="mt-20 grid lg:grid-cols-2 gap-10">
+        <div className="border-[6px] border-black bg-white p-10 shadow-[12px_12px_0px_#33CCCC]">
+          <div className="flex items-center gap-4 text-black font-black text-3xl uppercase italic mb-8">
+            <Info size={36} className="bg-primary p-1 border-2 border-black" /> QUICK TIPS
           </div>
-          <ul className="space-y-4 text-slate-700 text-sm font-medium">
+          <ul className="space-y-6 text-black text-lg font-bold uppercase italic">
             {[
-              'If you can\'t pronounce an ingredient, scan it with ScanSure before trusting it.',
-              'Shorter ingredient lists = fewer hiding places for chemicals.',
-              'Choose "Fragrance-Free" and "Paraben-Free" labeled products.',
-              '"Natural" and "Organic" on labels is NOT regulated — always scan!',
-              'EU-approved products are generally safer (stricter regulations).',
+              'If you can\'t pronounce it, scan it before trusting it.',
+              'Shorter ingredient lists = fewer places to hide.',
+              'Choose "Fragrance-Free" and "Paraben-Free" always.',
+              '"Natural" is NOT regulated — always scan!',
+              'EU-approved products are generally safer.',
             ].map((tip, i) => (
-              <li key={i} className="flex gap-3 items-start">
-                <span className="w-6 h-6 shrink-0 rounded-full bg-emerald-100 text-emerald-600 font-black text-xs flex items-center justify-center">{i + 1}</span>
+              <li key={i} className="flex gap-4 items-start">
+                <span className="w-8 h-8 shrink-0 border-2 border-black bg-accent text-black font-black flex items-center justify-center text-sm">{i + 1}</span>
                 {tip}
               </li>
             ))}
           </ul>
         </div>
 
-        <div className="glass bg-white/70 p-8 rounded-3xl shadow-md border-white space-y-5">
-          <div className="flex items-center gap-3 text-rose-600 font-black text-xl">
-            <AlertTriangle size={28} /> Red Flag Ingredients
+        <div className="border-[6px] border-black bg-white p-10 shadow-[12px_12px_0px_#FF90E8]">
+          <div className="flex items-center gap-4 text-black font-black text-3xl uppercase italic mb-8">
+            <AlertTriangle size={36} className="bg-red-500 p-1 border-2 border-black" /> RED FLAGS
           </div>
-          <ul className="space-y-4 text-slate-700 text-sm font-medium">
+          <ul className="space-y-6 text-black text-lg font-bold uppercase italic">
             {[
-              { flag: 'Anything ending in -paraben', why: 'Estrogen mimickers, cancer risk' },
-              { flag: 'Sodium Lauryl/Laureth Sulfate', why: 'Skin barrier destroyer' },
-              { flag: 'TBHQ / BHA / BHT', why: 'Petroleum preservatives, carcinogens' },
-              { flag: '"Fragrance" or "Parfum"', why: 'Hidden chemical cocktail' },
-              { flag: 'Caramel Color (E150d)', why: 'Contains 4-MEI, a carcinogen' },
+              { flag: 'PARABENS', why: 'Estrogen mimickers' },
+              { flag: 'SLS / SLES', why: 'Skin barrier destroyer' },
+              { flag: 'TBHQ / BHA', why: 'Petroleum carcinogens' },
+              { flag: 'FRAGRANCE', why: 'Secret chemical cult' },
+              { flag: 'CARAMEL IV', why: 'Highly carcinogenic' },
             ].map((item, i) => (
-              <li key={i} className="flex gap-3 items-start">
-                <span className="w-5 h-5 shrink-0 rounded-full bg-rose-100 text-rose-600 font-black text-xs flex items-center justify-center">!</span>
+              <li key={i} className="flex gap-4 items-start">
+                <span className="w-8 h-8 shrink-0 border-2 border-black bg-red-500 text-white font-black flex items-center justify-center text-sm">!</span>
                 <div>
-                  <span className="font-bold text-slate-900">{item.flag}</span>
-                  <span className="text-slate-500"> — {item.why}</span>
+                  <span className="bg-black text-white px-2 py-0.5">{item.flag}</span>
+                  <span className="ml-2">— {item.why}</span>
                 </div>
               </li>
             ))}
           </ul>
         </div>
-      </motion.div>
+      </div>
 
       {/* CTA */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.97 }}
-        whileInView={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2 }}
-        className="mt-16 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-3xl p-10 text-center text-white shadow-2xl"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        className="mt-24 bg-black border-[6px] border-black p-12 text-center text-white shadow-[15px_15px_0px_#A3E635] rotate-[-1deg]"
       >
-        <h2 className="text-3xl font-black mb-3">Don't Guess. Scan It. ✨</h2>
-        <p className="text-indigo-100 font-medium text-lg mb-6 max-w-xl mx-auto">
-          Next time you pick up a product, paste its ingredient list into ScanSure and get an instant safety analysis — AI-powered, research-backed.
+        <h2 className="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter leading-none italic">Don't Guess. <span className="text-primary italic">Scan It.</span></h2>
+        <p className="text-gray-300 font-bold text-xl mb-10 max-w-2xl mx-auto uppercase">
+          NEXT TIME YOU PICK UP A PRODUCT, PASTE ITS INGREDIENT LIST INTO SCANSURE AND GET AN INSTANT SAFETY ANALYSIS.
         </p>
-        <a href="/" className="inline-block bg-white text-indigo-700 font-black px-8 py-3 rounded-full hover:bg-indigo-50 transition-colors shadow-lg text-base">
-          🔬 Scan Now — It's Free
+        <a href="/" className="inline-block bg-primary text-black font-black px-12 py-4 border-4 border-black shadow-[6px_6px_0px_white] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all text-2xl uppercase italic">
+          🔬 Scan Now — FREE
         </a>
       </motion.div>
     </div>

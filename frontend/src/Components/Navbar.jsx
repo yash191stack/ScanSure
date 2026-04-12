@@ -4,52 +4,48 @@ import { ShieldCheck, Activity, Info, HelpCircle, AlertTriangle, BarChart3, Leaf
 
 const Navbar = () => {
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-4xl glass px-8 py-4 flex items-center justify-between transition-all">
-      <div className="flex items-center gap-2 brand text-2xl font-extrabold bg-gradient-to-r from-pink-500 to-indigo-500 bg-clip-text text-transparent cursor-pointer">
-        <ShieldCheck className="text-pink-500" size={32} />
-        <span>ChemSafe AI</span>
+    <nav className="sticky top-0 z-50 w-full bg-white border-b-[4px] border-black px-6 py-4 flex items-center justify-between">
+      <div className="flex items-center gap-3 cursor-pointer">
+        <div className="bg-primary p-2 border-2 border-black shadow-[3px_3px_0px_#000000]">
+          <ShieldCheck className="text-black" size={28} />
+        </div>
+        <span className="text-2xl font-black tracking-tighter uppercase italic">ScanSure</span>
       </div>
       
-      <div className="hidden md:flex items-center gap-8 text-indigo-900 font-bold">
-        <NavLink to="/" className={({ isActive }) => 
-          `flex items-center gap-2 hover:text-pink-500 transition-all duration-300 ${isActive ? 'text-pink-500 scale-105' : ''}`
-        }>
-          <Activity size={18} />
-          Scan
-        </NavLink>
-        <NavLink to="/how" className={({ isActive }) => 
-          `flex items-center gap-2 hover:text-pink-500 transition-all duration-300 ${isActive ? 'text-pink-500 scale-105' : ''}`
-        }>
-          <HelpCircle size={18} />
-          How It Works
-        </NavLink>
-        <NavLink to="/awareness" className={({ isActive }) => 
-          `flex items-center gap-2 hover:text-pink-500 transition-all duration-300 ${isActive ? 'text-pink-500 scale-105' : ''}`
-        }>
-          <AlertTriangle size={18} />
-          Awareness
-        </NavLink>
-        <NavLink to="/insights" className={({ isActive }) => 
-          `flex items-center gap-2 hover:text-pink-500 transition-all duration-300 ${isActive ? 'text-pink-500 scale-105' : ''}`
-        }>
-          <BarChart3 size={18} />
-          Insights
-        </NavLink>
-        <NavLink to="/alternatives" className={({ isActive }) => 
-          `flex items-center gap-2 hover:text-pink-500 transition-all duration-300 ${isActive ? 'text-pink-500 scale-105' : ''}`
-        }>
-          <Leaf size={18} />
-          Alternatives
-        </NavLink>
-        <NavLink to="/about" className={({ isActive }) => 
-          `flex items-center gap-2 hover:text-pink-500 transition-all duration-300 ${isActive ? 'text-pink-500 scale-105' : ''}`
-        }>
-          <Info size={18} />
-          About
-        </NavLink>
+      <div className="hidden lg:flex items-center gap-6">
+        {[
+          { to: "/", icon: <Activity size={18} />, label: "Scan" },
+          { to: "/how", icon: <HelpCircle size={18} />, label: "How It Works" },
+          { to: "/awareness", icon: <AlertTriangle size={18} />, label: "Awareness" },
+          { to: "/insights", icon: <BarChart3 size={18} />, label: "Insights" },
+          { to: "/alternatives", icon: <Leaf size={18} />, label: "Alternatives" },
+          { to: "/about", icon: <Info size={18} />, label: "About" },
+        ].map((link) => (
+          <NavLink 
+            key={link.to} 
+            to={link.to} 
+            className={({ isActive }) => 
+              `flex items-center gap-2 px-3 py-1 font-bold border-2 transition-all ${
+                isActive 
+                ? 'bg-secondary text-black border-black shadow-[3px_3px_0px_#000000] -translate-y-0.5' 
+                : 'border-transparent hover:border-black hover:bg-gray-100'
+              }`
+            }
+          >
+            {link.icon}
+            {link.label}
+          </NavLink>
+        ))}
+      </div>
+
+      <div className="flex items-center">
+        <button className="brutal-btn text-sm py-2 px-4">
+          Get Started
+        </button>
       </div>
     </nav>
   );
 };
 
 export default Navbar;
+

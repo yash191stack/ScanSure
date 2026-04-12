@@ -9,7 +9,6 @@ const Result = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
 
-  // Mock data for results
   const results = {
     score: 84,
     riskLevel: "Low Risk",
@@ -33,17 +32,15 @@ const Result = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex flex-col items-center justify-center space-y-8 bg-gradient-to-tr from-pink-100 to-cyan-100">
-        <div className="relative w-36 h-36">
-          <div className="absolute inset-0 border-8 border-pink-200 rounded-full"></div>
-          <div className="absolute inset-0 border-8 border-t-pink-500 rounded-full animate-spin"></div>
-          <div className="absolute inset-4 border-8 border-t-indigo-500 rounded-full animate-spin-slow"></div>
+      <div className="min-h-screen flex flex-col items-center justify-center space-y-8 bg-primary">
+        <div className="brutal-card p-8 bg-white rotate-3 shadow-[8px_8px_0px_#000]">
+          <RefreshCw className="text-black animate-spin" size={60} />
         </div>
         <motion.div 
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ repeat: Infinity, duration: 1.5, repeatType: "reverse" }}
-          className="text-indigo-800 font-extrabold tracking-[0.2em] uppercase text-lg animate-pulse"
+          transition={{ repeat: Infinity, duration: 0.5, repeatType: "reverse" }}
+          className="text-black font-black tracking-tighter uppercase text-4xl italic"
         >
           Analyzing Magic Potions...
         </motion.div>
@@ -55,57 +52,57 @@ const Result = () => {
     <motion.div 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="pt-32 pb-20 px-6 max-w-7xl mx-auto"
+      className="pt-12 pb-20 px-6 max-w-7xl mx-auto"
     >
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16 border-b-[6px] border-black pb-8">
         <div>
           <button 
             onClick={() => navigate('/')}
-            className="flex items-center gap-2 text-indigo-500 hover:text-pink-600 font-bold transition-colors mb-4 group"
+            className="flex items-center gap-2 text-black hover:bg-black hover:text-white px-4 py-1 border-2 border-black font-black transition-all mb-6 uppercase italic text-sm w-fit"
           >
-            <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
+            <ArrowLeft size={18} />
             Back to Scanner
           </button>
-          <h1 className="text-4xl font-black tracking-tighter text-indigo-950">
-            ANALYSIS <span className="text-pink-500">REPORT</span>
+          <h1 className="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none">
+            ANALYSIS <span className="bg-secondary px-2 border-2 border-black">REPORT</span>
           </h1>
         </div>
         
         <div className="flex items-center gap-4">
-          <button className="glass p-3 text-indigo-600 hover:text-pink-600 border-white transition-colors bg-white/40">
-            <Download size={22} />
+          <button className="brutal-card p-4 bg-white hover:bg-primary transition-colors">
+            <Download size={24} />
           </button>
-          <button className="glass p-3 text-indigo-600 hover:text-pink-600 border-white transition-colors bg-white/40">
-            <Share2 size={22} />
+          <button className="brutal-card p-4 bg-white hover:bg-accent transition-colors">
+            <Share2 size={24} />
           </button>
           <button 
             onClick={() => navigate('/')}
-            className="px-6 py-3.5 bg-gradient-to-r from-pink-500 to-indigo-500 hover:from-pink-600 hover:to-indigo-600 text-white font-extrabold rounded-full flex items-center gap-2 transition-all shadow-md hover:shadow-lg"
+            className="brutal-btn bg-primary text-xl px-8"
           >
-            <RefreshCw size={20} />
+            <RefreshCw size={24} />
             New Scan
           </button>
         </div>
       </div>
 
-      <div className="space-y-12">
+      <div className="space-y-16">
         <ResultCard 
           score={results.score} 
           totalChemicals={results.totalChemicals} 
           riskLevel={results.riskLevel} 
         />
         
-        <div className="space-y-6">
-          <div className="flex items-center justify-between glass p-4 bg-white/50 border-white/80">
-            <h2 className="text-xl font-extrabold uppercase tracking-widest text-indigo-900">Detailed Breakdown</h2>
+        <div className="space-y-8">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 border-4 border-black p-6 bg-white shadow-[8px_8px_0px_#000]">
+            <h2 className="text-3xl font-black uppercase italic">Detailed Breakdown</h2>
             <div className="flex flex-wrap items-center gap-6 text-sm font-black uppercase">
-              <span className="flex items-center gap-2 text-rose-600"><div className="w-3 h-3 rounded-full bg-rose-400 border border-rose-600"></div> High</span>
-              <span className="flex items-center gap-2 text-amber-600"><div className="w-3 h-3 rounded-full bg-amber-400 border border-amber-600"></div> Med</span>
-              <span className="flex items-center gap-2 text-emerald-600"><div className="w-3 h-3 rounded-full bg-emerald-400 border border-emerald-600"></div> Safe</span>
+              <span className="flex items-center gap-2 border-2 border-black px-3 py-1 bg-red-400">High Risk</span>
+              <span className="flex items-center gap-2 border-2 border-black px-3 py-1 bg-orange-400">Medium Risk</span>
+              <span className="flex items-center gap-2 border-2 border-black px-3 py-1 bg-lime-400">Safe</span>
             </div>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {results.chemicals.map((chem, idx) => (
               <ChemicalCard key={idx} {...chem} />
             ))}
@@ -117,3 +114,4 @@ const Result = () => {
 };
 
 export default Result;
+

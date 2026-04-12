@@ -7,35 +7,27 @@ const ChemicalCard = ({ name, sideEffect, riskLevel }) => {
     switch (riskLevel) {
       case 'High':
         return {
-          bg: 'bg-rose-100',
-          border: 'border-rose-300',
-          glow: 'glow-red',
-          text: 'text-rose-700',
-          icon: <AlertCircle className="text-rose-600" size={24} />
+          bg: 'bg-red-400',
+          text: 'text-black',
+          icon: <AlertCircle className="text-black" size={24} />
         };
       case 'Medium':
         return {
-          bg: 'bg-amber-100',
-          border: 'border-amber-300',
-          glow: 'glow-yellow',
-          text: 'text-amber-800',
-          icon: <Info className="text-amber-600" size={24} />
+          bg: 'bg-orange-400',
+          text: 'text-black',
+          icon: <Info className="text-black" size={24} />
         };
       case 'Safe':
         return {
-          bg: 'bg-lime-100',
-          border: 'border-lime-300',
-          glow: 'glow-green',
-          text: 'text-emerald-800',
-          icon: <CheckCircle className="text-emerald-600" size={24} />
+          bg: 'bg-lime-400',
+          text: 'text-black',
+          icon: <CheckCircle className="text-black" size={24} />
         };
       default:
         return {
-          bg: 'bg-blue-100',
-          border: 'border-blue-300',
-          glow: 'glow-cyan',
-          text: 'text-blue-800',
-          icon: <Info className="text-blue-600" size={24} />
+          bg: 'bg-blue-300',
+          text: 'text-black',
+          icon: <Info className="text-black" size={24} />
         };
     }
   };
@@ -44,33 +36,32 @@ const ChemicalCard = ({ name, sideEffect, riskLevel }) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
-      whileHover={{ scale: 1.03, y: -4 }}
-      transition={{ type: 'spring', stiffness: 300 }}
-      className={`glass ${styles.bg} ${styles.border} p-6 flex flex-col gap-4 group transition-all duration-300 shadow-md hover:shadow-lg`}
+      whileHover={{ y: -5, x: -5, boxShadow: '10px 10px 0px #000' }}
+      className={`border-4 border-black p-6 flex flex-col gap-4 bg-white shadow-[6px_6px_0px_#000] transition-all`}
     >
-      <div className="flex items-center justify-between gap-3">
-        <h3 className={`font-extrabold text-lg ${styles.text} uppercase tracking-wider`}>
+      <div className="flex items-start justify-between gap-3">
+        <h3 className="font-black text-xl uppercase tracking-tighter leading-none italic">
           {name}
         </h3>
-        <div className="p-2 bg-white/50 rounded-full shadow-sm">
+        <div className={`p-2 border-2 border-black ${styles.bg}`}>
           {styles.icon}
         </div>
       </div>
       
-      <p className="text-sm text-slate-700 font-medium leading-relaxed min-h-[40px]">
+      <p className="text-sm text-black font-bold uppercase leading-tight min-h-[50px]">
         {sideEffect}
       </p>
       
-      <div className="mt-2 flex items-center justify-between bg-white/40 p-2 px-3 rounded-lg border border-white/50">
-        <span className={`text-xs uppercase font-black ${styles.text}`}>
-          Risk: {riskLevel}
+      <div className={`mt-2 border-2 border-black p-2 px-3 ${styles.bg} shadow-[3px_3px_0px_#000]`}>
+        <span className="text-xs uppercase font-black tracking-widest text-black">
+          RISK: {riskLevel}
         </span>
-        <div className={`w-3 h-3 rounded-full ${styles.bg} border-2 ${styles.border} animate-pulse`}></div>
       </div>
     </motion.div>
   );
 };
 
 export default ChemicalCard;
+

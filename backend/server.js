@@ -9,9 +9,15 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+// Root route
+app.get('/', (req, res) => {
+  res.json({ message: 'ScanSure API is running', status: 'OK' });
+});
+
 app.use('/api', analysisRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 8000;
 const MONGO_URI = process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/scansure';
 
 mongoose.connect(MONGO_URI).then(() => {

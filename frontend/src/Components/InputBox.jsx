@@ -19,51 +19,54 @@ const InputBox = () => {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8 }}
-      className="w-full max-w-3xl mx-auto flex flex-col gap-6"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="w-full flex flex-col gap-6"
     >
-      <div className="relative group">
-        <div className="absolute -inset-2 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-300 rounded-3xl blur-xl opacity-50 group-hover:opacity-80 transition duration-500"></div>
-        <div className="relative glass p-8">
-          <div className="flex items-center gap-3 mb-4 text-indigo-600 font-extrabold tracking-wide uppercase text-sm">
-            <Sparkles size={18} className="text-pink-500" />
+      <div className="brutal-card p-1 bg-black">
+        <div className="bg-white p-6 md:p-10 border-2 border-black">
+          <div className="flex items-center gap-3 mb-6 text-black font-black tracking-widest uppercase text-xl italic">
+            <Sparkles size={24} className="text-secondary" />
             Paste Ingredients Below
           </div>
           
           <textarea
             value={ingredients}
             onChange={(e) => setIngredients(e.target.value)}
-            placeholder="e.g. Aqua, Sodium Laureth Sulfate, Parabens..."
-            className="w-full h-48 bg-white/50 border border-white/60 rounded-2xl p-5 text-indigo-950 placeholder-indigo-300 focus:outline-none focus:ring-4 focus:ring-pink-300/50 transition-all duration-300 resize-none font-medium text-base leading-relaxed shadow-inner"
+            placeholder="e.g. AQUA, SODIUM LAURETH SULFATE, PARABENS..."
+            className="w-full h-56 bg-secondary/10 border-[3px] border-black p-6 text-black placeholder-gray-500 focus:outline-none focus:bg-white transition-all duration-200 resize-none font-bold text-lg leading-tight shadow-[6px_6px_0px_#000]"
           ></textarea>
           
-          <div className="mt-6 flex flex-wrap gap-4 items-center justify-between">
+          <div className="mt-8 flex flex-wrap gap-6 items-center justify-between">
             <button 
               onClick={fillExample}
-              className="px-5 py-2.5 text-sm font-bold text-indigo-600 hover:text-pink-600 bg-white/40 hover:bg-white/80 border border-white/60 rounded-full transition-all duration-300 flex items-center gap-2 shadow-sm"
+              className="px-6 py-3 font-black text-black border-[3px] border-black bg-white hover:bg-gray-100 shadow-[4px_4px_0px_#000] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all flex items-center gap-2 uppercase text-sm italic"
             >
-              <Wand2 size={16} />
-              Autofill Example
+              <Wand2 size={18} />
+              Sample Data
             </button>
             
             <button 
               onClick={handleAnalyze}
-              className="px-10 py-3.5 bg-gradient-to-r from-pink-500 to-violet-500 text-white font-extrabold rounded-full flex items-center gap-3 hover:shadow-[0_8px_25px_rgba(236,72,153,0.4)] transition-all duration-300 hover:scale-[1.03] active:scale-95"
+              className="px-12 py-4 bg-primary text-black font-black border-[3px] border-black flex items-center gap-3 shadow-[8px_8px_0px_#000] hover:shadow-[4px_4px_0px_#000] hover:translate-x-1 hover:translate-y-1 active:shadow-none active:translate-x-2 active:translate-y-2 transition-all uppercase text-xl italic tracking-tighter"
             >
-              <Search size={22} />
+              <Search size={24} />
               ANALYZE NOW
             </button>
           </div>
         </div>
       </div>
       
-      <p className="text-center text-indigo-800/60 font-bold text-xs tracking-widest uppercase">
-        AI Power • Bright Insights • Health First
-      </p>
+      <div className="flex justify-center gap-8 mt-4">
+        {['AI POWER', 'BRIGHT INSIGHTS', 'HEALTH FIRST'].map((tag) => (
+          <span key={tag} className="text-black font-black text-xs tracking-[0.2em] uppercase italic bg-yellow-300 px-2 py-0.5 border-2 border-black shadow-[2px_2px_0px_#000]">
+            {tag}
+          </span>
+        ))}
+      </div>
     </motion.div>
   );
 };
 
 export default InputBox;
+
