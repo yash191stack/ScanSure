@@ -1,8 +1,8 @@
 const Chemical = require('../models/chemical');
-const { GoogleGenerativeAI } = require('@google/generative-ai');
 
-// Initialize Gemini API (Optional fallback if key is missing)
-const genAI = process.env.GEMINI_API_KEY ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY) : null;
+// We use fetch if available (Node 18+), else we can use a small polyfill or fallback.
+// Since we can't install new packages easily, we'll use the native 'https' module for maximum compatibility.
+const https = require('https');
 
 const analyzeIngredients = async (req, res) => {
     try {
@@ -12,6 +12,7 @@ const analyzeIngredients = async (req, res) => {
             return res.status(400).json({ 
                 success: false, 
                 message: "Please paste some ingredients to analyze!" 
+                
             });
         }
 
@@ -34,12 +35,10 @@ const analyzeIngredients = async (req, res) => {
             }
         });
 
-        // 2. AI Analysis (using Gemini)
+        // 2. AI Analysis (using OpenAI)
         let aiReport = null;
-        if (genAI) {
+        if (process.env.OPENAI_API_KEY) {
             try {
-                const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-                
                 const prompt = `
                     You are a professional toxicologist and food safety expert. 
                     Analyze the following list of ingredients: ${ingredients}.
@@ -53,7 +52,7 @@ const analyzeIngredients = async (req, res) => {
                     
                     Also, provide an overall safety score (0-100) and a summary.
                     
-                    Return the response in STRICTURE JSON format as follows:
+                    Return the response in STRICT JSON format as follows:
                     {
                         "score": number,
                         "summary": "string",
@@ -71,15 +70,59 @@ const analyzeIngredients = async (req, res) => {
                     }
                 `;
 
-                const result = await model.generateContent(prompt);
-                const responseText = result.response.text();
-                
-                // Clean the response text to ensure it's valid JSON
-                const cleanJson = responseText.replace(/```json|```/g, "").trim();
-                aiReport = JSON.parse(cleanJson);
+                aiReport = await new Promise((resolve, reject) => {
+                    const data = JSON.stringify({
+                        model: "gpt-4o",
+                        messages: [
+                            { role: "system", content: "You are a toxicologist that outputs only JSON." },
+                            { role: "user", content: prompt }
+                        ],
+                        response_format: { type: "json_object" },
+                        temperature: 0.7
+                    });
+
+                    const options = {
+                        hostname: 'api.openai.com',
+                        port: 443,
+                        path: '/v1/chat/completions',
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+                            'Content-Length': data.length
+                        }
+                    };
+
+                    const reqOpenAI = https.request(options, (resOpenAI) => {
+                        let body = '';
+                        resOpenAI.on('data', (chunk) => body += chunk);
+                        resOpenAI.on('end', () => {
+                            try {
+                                const response = JSON.parse(body);
+                                if (response.choices && response.choices[0]) {
+                                    resolve(JSON.parse(response.choices[0].message.content));
+                                } else {
+                                    console.error("OpenAI Invalid Response:", response);
+                                    resolve(null);
+                                }
+                            } catch (e) {
+                                console.error("JSON Parse Error from OpenAI:", e);
+                                resolve(null);
+                            }
+                        });
+                    });
+
+                    reqOpenAI.on('error', (e) => {
+                        console.error("OpenAI Request Error:", e);
+                        resolve(null);
+                    });
+
+                    reqOpenAI.write(data);
+                    reqOpenAI.end();
+                });
+
             } catch (aiError) {
-                console.error("Gemini AI Error:", aiError);
-                // Continue without AI report if it fails
+                console.error("AI Analysis Error:", aiError);
             }
         }
 
@@ -93,7 +136,7 @@ const analyzeIngredients = async (req, res) => {
                 harmfulList: detectedHarmful,
                 summary: aiReport ? aiReport.summary : (safetyScore > 70 ? "Safe to use" : (safetyScore > 40 ? "Use with caution" : "Harmful/Toxic")),
                 report: aiReport || null,
-                message: aiReport ? "Deep AI Analysis Completed" : "Database Analysis Completed (AI Offline)"
+                message: aiReport ? "Deep AI Analysis Completed (OpenAI)" : "Database Analysis Completed (AI Offline)"
             }
         });
 
