@@ -1,61 +1,110 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Heart, Globe, Mail } from 'lucide-react';
+import { Heart, Globe, Mail, ShieldCheck, Activity, Users } from 'lucide-react';
 
 const About = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
 
   return (
-    <div className="pt-20 pb-20 px-6 max-w-7xl mx-auto min-h-screen">
+    <div className="pt-24 pb-32 px-6 max-w-7xl mx-auto min-h-screen lab-bg-overlay">
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-center mb-20"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="text-center mb-24"
       >
-        <span className="bg-accent border-2 border-black px-4 py-2 font-black tracking-widest uppercase text-sm shadow-[4px_4px_0px_#000]">Our Mission</span>
-        <h1 className="text-6xl md:text-8xl font-black mt-10 tracking-tighter uppercase leading-none">
-          DECODING <span className="bg-primary px-3 border-4 border-black inline-block -rotate-2">SAFE</span> <br /> 
-          LIVING <span className="text-secondary italic">NOW.</span>
-        </h1>
+        <motion.div 
+          variants={itemVariants}
+          className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full font-bold tracking-wider uppercase text-[10px] mb-8"
+        >
+          <Users size={14} /> Our Mission & Impact
+        </motion.div>
+        <motion.h1 
+          variants={itemVariants}
+          className="text-5xl md:text-8xl font-bold mt-8 tracking-tight text-main mb-8"
+        >
+          Advocating for <br /> <span className="text-primary italic">Absolute Truth.</span>
+        </motion.h1>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 items-stretch">
-        <div className="border-[6px] border-black bg-white p-10 space-y-8 shadow-[12px_12px_0px_#000]">
-          <div className="flex items-center gap-4 bg-black text-white p-4 w-fit shadow-[4px_4px_0px_#A3E635]">
-            <Heart size={36} className="fill-red-500 text-red-500" />
-            <h2 className="text-3xl font-black tracking-tighter uppercase italic pr-2">Why We Exist</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-32 items-stretch">
+        <motion.div 
+          initial={{ opacity: 0, x: -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="lab-card p-12 space-y-8 flex flex-col justify-center"
+        >
+          <div className="flex items-center gap-4 group">
+            <div className="bg-emerald-50 text-emerald-600 p-4 rounded-2xl shadow-sm group-hover:scale-110 transition-transform">
+              <Heart size={32} className="fill-emerald-600" />
+            </div>
+            <h2 className="text-3xl font-bold tracking-tight text-main">Public Health First</h2>
           </div>
-          <p className="text-black font-bold text-xl leading-tight uppercase italic">
-            IN AN ERA OF COMPLEX PRODUCT FORMULATIONS, TRANSPARENCY IS ESSENTIAL. SCANSURE WAS BORN FROM THE DESIRE TO GIVE CONSUMERS A RAW, HONEST WAY TO UNDERSTAND EXACTLY WHAT THEY'RE PUTTING ON THEIR SKIN.
+          <p className="text-slate-600 font-medium text-lg leading-relaxed">
+            In an era of complex product formulations and obscure labeling, transparency is no longer optional—it's essential. ScanSure was created to dismantle the barrier between chemical complexity and consumer understanding.
           </p>
-          <p className="text-black font-bold text-xl leading-tight uppercase italic">
-            OUR APP LEVERAGES CUTTING-EDGE AI TO SCAN THROUGH DENSE INGREDIENT LISTS, IDENTIFYING POTENTIALLY HARMFUL CHEMICALS WITHOUT THE SUGAR-COATING.
+          <p className="text-slate-600 font-medium text-lg leading-relaxed">
+            Our platform leverages advanced neural logic to scan through dense ingredient lists, identifying bio-accumulation risks and environmental toxins without the marketing noise.
           </p>
-          <div className="pt-8 border-t-4 border-black flex items-center gap-8">
-            <Globe className="hover:bg-primary border-2 border-black p-1 transition-all cursor-pointer box-content shadow-[3px_3px_0px_#000]" size={28} />
-            <Mail className="hover:bg-secondary border-2 border-black p-1 transition-all cursor-pointer box-content shadow-[3px_3px_0px_#000]" size={28} />
+          <div className="pt-8 border-t border-slate-100 flex items-center gap-6">
+            <div className="p-3 rounded-xl border border-slate-100 hover:bg-emerald-50 hover:text-emerald-600 transition-all cursor-pointer">
+                <Globe size={24} />
+            </div>
+            <div className="p-3 rounded-xl border border-slate-100 hover:bg-emerald-50 hover:text-emerald-600 transition-all cursor-pointer">
+                <Mail size={24} />
+            </div>
           </div>
-        </div>
+        </motion.div>
         
-        <div className="border-[6px] border-black bg-gray-100 p-10 shadow-[12px_12px_0px_#FB923C] flex flex-col justify-center">
-          <h3 className="text-4xl font-black text-black mb-10 uppercase tracking-tighter italic bg-white w-fit px-4 border-4 border-black shadow-[4px_4px_0px_#000]">Our Vision</h3>
-          <div className="space-y-8 text-black">
-            <p className="font-black text-2xl leading-none uppercase tracking-tighter">
-              WE ENVISION A WORLD WHERE EVERY CONSUMER CAN MAKE INFORMED DECISIONS ABOUT THE PRODUCTS THEY USE.
-            </p>
-            <p className="font-black text-2xl leading-none uppercase tracking-tighter">
-              BY COMBINING ADVANCED AI TECHNOLOGY WITH A NO-BULLSHIT INTERFACE, WE'RE MAKING TRANSPARENCY ACCESSIBLE.
-            </p>
-            <p className="font-black text-2xl leading-none uppercase tracking-tighter text-secondary">
-              YOUR HEALTH MATTERS. YOUR CHOICES MATTER. KNOWLEDGE IS POWER.
-            </p>
+        <motion.div 
+          initial={{ opacity: 0, x: 20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          className="lab-card p-12 bg-slate-50 border-slate-200 flex flex-col justify-center relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 p-12 opacity-[0.02] rotate-45 text-main">
+            <ShieldCheck size={300} />
           </div>
-        </div>
+          <div className="relative z-10 space-y-10">
+            <div className="space-y-4">
+               <h3 className="text-2xl font-bold text-main">Global Transparency</h3>
+               <p className="font-medium text-slate-500 leading-relaxed">
+                 We envision a world where every consumer has the clinical data required to make informed decisions about the biological impact of the products they utilize.
+               </p>
+            </div>
+            <div className="space-y-4">
+               <h3 className="text-2xl font-bold text-main">Science-Lead Tech</h3>
+               <p className="font-medium text-slate-500 leading-relaxed">
+                 By combining state-of-the-art AI synthesis with an uncompromising commitment to research integrity, we are making scientific transparency universal.
+               </p>
+            </div>
+            <div className="inline-flex items-center gap-3 text-primary font-bold tracking-tight bg-primary/5 px-4 py-2 rounded-xl w-fit">
+              <Activity size={20} /> Empirical Knowledge is Power.
+            </div>
+          </div>
+        </motion.div>
       </div>
       
-      <div className="text-center mt-32 marquee-container rotate-1">
-        <div className="marquee-content py-4">
-          {[...Array(5)].map((_, i) => (
-             <span key={i} className="text-2xl font-black mx-10 uppercase italic">• RAW DATA • TOTAL TRANSPARENCY • NO SECRETS • SCANSURE AI •</span>
+      {/* Subtle Marquee */}
+      <div className="w-full marquee-container py-6 opacity-80 backdrop-grayscale">
+        <div className="marquee-content flex items-center">
+          {[...Array(6)].map((_, i) => (
+             <div key={i} className="flex items-center gap-12 mx-12">
+                <span className="text-lg font-bold flex items-center gap-2 text-white">
+                    <ShieldCheck size={20} className="text-white/40" /> RAW DATA ANALYSIS
+                </span>
+                <span className="text-lg font-bold flex items-center gap-2 text-white">
+                    <ShieldCheck size={20} className="text-white/40" /> NEURAL SYNTHESIS
+                </span>
+             </div>
           ))}
         </div>
       </div>
@@ -64,4 +113,3 @@ const About = () => {
 };
 
 export default About;
-

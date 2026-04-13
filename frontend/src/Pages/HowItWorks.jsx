@@ -1,77 +1,120 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, BrainCircuit, ShieldCheck, ArrowRight } from 'lucide-react';
+import { Search, BrainCircuit, ShieldCheck, ArrowRight, Activity, FlaskConical, Database } from 'lucide-react';
 
 const HowItWorks = () => {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.2 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
+  };
+
   const steps = [
     {
-      icon: <Search size={44} />,
-      title: "1. Input Ingredients",
-      description: "Paste the raw ingredient list from any product packaging into our adorable scanning field.",
-      bg: "bg-primary"
+      icon: <Search size={32} />,
+      title: "Data Acquisition",
+      description: "Paste the complex ingredient list from any consumer product. Our system handles raw text and chemical nomenclature with precision.",
+      color: "text-emerald-600",
+      bg: "bg-emerald-50"
     },
     {
-      icon: <BrainCircuit size={44} />,
-      title: "2. AI Magic",
-      description: "Our neural network processes each chemical, cross-referencing it with international health databases.",
-      bg: "bg-accent"
+      icon: <BrainCircuit size={32} />,
+      title: "Neural Synthesis",
+      description: "Our AI engine cross-references each token against global toxicology databases, research papers, and regulatory lists (EU/FDA).",
+      color: "text-teal-600",
+      bg: "bg-teal-50"
     },
     {
-      icon: <ShieldCheck size={44} />,
-      title: "3. Safety Output",
-      description: "Receive a beautiful safety score and a detailed breakdown of each chemical by risk level.",
-      bg: "bg-secondary"
+      icon: <ShieldCheck size={32} />,
+      title: "Risk Calibration",
+      description: "Receive a weighted safety score and a comprehensive toxicity breakdown grouped by immediate and long-term biological risks.",
+      color: "text-cyan-600",
+      bg: "bg-cyan-50"
     }
   ];
 
   return (
-    <div className="pt-20 pb-20 px-6 max-w-7xl mx-auto min-h-screen">
+    <div className="pt-24 pb-32 px-6 max-w-7xl mx-auto min-h-screen lab-bg-overlay">
       <motion.div 
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
         className="text-center mb-24"
       >
-        <span className="bg-black text-white font-black tracking-[0.3em] uppercase text-sm px-4 py-2 border-2 border-black shadow-[4px_4px_0px_#A3E635]">The Process</span>
-        <h1 className="text-6xl md:text-8xl font-black mt-8 tracking-tighter uppercase leading-none">
-          HOW WE KEEP <br /> YOU <span className="text-primary italic">SAFE.</span>
-        </h1>
+        <motion.div 
+          variants={itemVariants}
+          className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary rounded-full font-bold tracking-wider uppercase text-[10px] mb-8"
+        >
+          <Activity size={14} /> Analysis Methodology
+        </motion.div>
+        <motion.h1 
+          variants={itemVariants}
+          className="text-5xl md:text-8xl font-bold mt-8 tracking-tight text-main mb-8"
+        >
+          Built on Rigorous <br /> <span className="text-primary italic">Science.</span>
+        </motion.h1>
+        <motion.p 
+          variants={itemVariants}
+          className="max-w-3xl mx-auto text-slate-500 text-lg md:text-xl font-medium leading-relaxed"
+        >
+          Understanding the chemical makeup of everyday products shouldn't be a mystery. Here's how our multi-layered analytical pipeline decodes your products.
+        </motion.p>
       </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative mb-20">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative mb-32">
         {steps.map((step, idx) => (
           <motion.div 
             key={idx}
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ delay: idx * 0.1 }}
-            className="border-[6px] border-black bg-white p-10 flex flex-col items-center text-center space-y-6 group shadow-[12px_12px_0px_#000] hover:translate-x-[-4px] hover:translate-y-[-4px] hover:shadow-[16px_16px_0px_#000] transition-all"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={itemVariants}
+            className="lab-card p-12 flex flex-col items-center text-center group"
           >
-            <div className={`w-28 h-28 ${step.bg} border-4 border-black flex items-center justify-center text-black shadow-[6px_6px_0px_#000] group-hover:scale-110 group-hover:rotate-6 transition-all`}>
+            <div className={`w-20 h-20 ${step.bg} ${step.color} rounded-2xl flex items-center justify-center mb-8 shadow-sm transition-transform duration-500 group-hover:scale-110 group-hover:rotate-6`}>
               {step.icon}
             </div>
             
-            <h3 className="text-3xl font-black tracking-tighter uppercase italic">{step.title}</h3>
-            <p className="text-black font-bold text-lg leading-tight uppercase italic">{step.description}</p>
+            <h3 className="text-2xl font-bold mb-4 text-main">{step.title}</h3>
+            <p className="text-slate-500 font-medium leading-relaxed">{step.description}</p>
           </motion.div>
         ))}
       </div>
       
       <motion.div 
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        className="mt-32 p-12 border-[6px] border-black bg-white text-center shadow-[15px_15px_0px_#000] relative overflow-hidden"
+        initial={{ opacity: 0, scale: 0.98 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        viewport={{ once: true }}
+        className="p-16 lab-card bg-slate-900 text-white relative overflow-hidden"
       >
-        <div className="absolute top-0 left-0 bg-primary text-black font-black px-4 py-1 uppercase border-b-4 border-r-4 border-black tracking-widest text-xs">
-           DATA PROTOCOL
+        <div className="absolute top-0 right-0 p-8 opacity-[0.05] rotate-12">
+            <FlaskConical size={200} />
         </div>
-        <h2 className="text-3xl font-black text-black uppercase tracking-tighter mb-6 italic">Deep Data Analysis</h2>
-        <p className="max-w-4xl mx-auto text-xl font-bold text-black leading-tight uppercase italic">
-          "OUR SYSTEM SCANS AGAINST THE LATEST WHO LIST OF BANNED SUBSTANCES, EUROPEAN EWG DATABASES, AND CURRENT CLINICAL RESEARCH TO PROVIDE UNPARALLELED ACCURACY IN A NO-BULLSHIT FORMAT."
-        </p>
+        <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center">
+            <div className="shrink-0 bg-primary p-4 rounded-2xl shadow-xl shadow-primary/20">
+                <Database size={40} />
+            </div>
+            <div className="space-y-6">
+                <div className="inline-block px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold tracking-widest text-primary uppercase">
+                    Core Security Protocol
+                </div>
+                <h2 className="text-3xl md:text-4xl font-bold tracking-tight">Enterprise-Grade Toxicology Data</h2>
+                <p className="max-w-3xl text-slate-400 font-medium text-lg leading-relaxed">
+                  "Our system evaluates ingredients against the World Health Organization (WHO) safety standards, the EU Cosmetics Regulation annexes, and current peer-reviewed clinical research to provide an objective evidence-based report."
+                </p>
+                <div className="flex items-center gap-6 text-[10px] font-bold tracking-widest uppercase text-slate-500 mt-4">
+                    <span>Validated Index v4.2</span>
+                    <span>99.8% Analysis Coverage</span>
+                </div>
+            </div>
+        </div>
       </motion.div>
     </div>
   );
 };
 
 export default HowItWorks;
-

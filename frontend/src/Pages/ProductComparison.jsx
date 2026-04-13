@@ -6,13 +6,49 @@ const ProductComparison = () => {
   const [productA, setProductA] = useState('');
   const [productB, setProductB] = useState('');
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  const analyze = () => {
-    // Placeholder logic – in real app call backend analysis API
-    const scoreA = Math.floor(Math.random() * 100);
-    const scoreB = Math.floor(Math.random() * 100);
-    const safer = scoreA >= scoreB ? 'A' : 'B';
-    setResult({ scoreA, scoreB, safer });
+  const analyze = async () => {
+    if (!productA || !productB) {
+      setError('Please enter ingredients for both products.');
+      return;
+    }
+    setLoading(true);
+    setError('');
+    setResult(null);
+
+    try {
+      const [resA, resB] = await Promise.all([
+        fetch('http://localhost:8000/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ingredients: productA })
+        }),
+        fetch('http://localhost:8000/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ ingredients: productB })
+        })
+      ]);
+
+      const dataA = await resA.json();
+      const dataB = await resB.json();
+
+      if (dataA.success && dataB.success) {
+        setResult({
+          scoreA: dataA.results.score,
+          scoreB: dataB.results.score,
+          safer: dataA.results.score >= dataB.results.score ? 'A' : 'B'
+        });
+      } else {
+        setError('Failed to analyze one or both products.');
+      }
+    } catch (err) {
+      setError('Error connecting to backend.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -39,29 +75,38 @@ const ProductComparison = () => {
         <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
           <h2 className="text-xl font-black text-slate-900 mb-3">Product A</h2>
           <textarea
-            className="w-full h-32 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full h-32 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-slate-50"
             placeholder="Enter ingredients for Product A"
             value={productA}
             onChange={e => setProductA(e.target.value)}
+            disabled={loading}
           />
         </div>
         <div className="p-6 bg-white rounded-2xl shadow-sm border border-slate-100">
           <h2 className="text-xl font-black text-slate-900 mb-3">Product B</h2>
           <textarea
-            className="w-full h-32 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            className="w-full h-32 p-3 border rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:bg-slate-50"
             placeholder="Enter ingredients for Product B"
             value={productB}
             onChange={e => setProductB(e.target.value)}
+            disabled={loading}
           />
         </div>
       </div>
 
+      {error && (
+        <div className="text-center text-red-500 mb-6 font-bold uppercase italic">
+          {error}
+        </div>
+      )}
+
       <div className="text-center mb-12">
         <button
           onClick={analyze}
-          className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-full transition-colors"
+          disabled={loading}
+          className="px-8 py-3 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-full transition-colors disabled:bg-slate-400"
         >
-          Analyze & Compare
+          {loading ? 'Comparing...' : 'Analyze & Compare'}
         </button>
       </div>
 

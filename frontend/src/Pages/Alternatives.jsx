@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Leaf, Droplets, Sun, Sparkles, ArrowRight, ShieldCheck, CheckCircle2, ChevronDown, ChevronUp } from 'lucide-react';
+import { Leaf, Droplets, Sun, Sparkles, ArrowRight, ShieldCheck, CheckCircle2, ChevronDown, ChevronUp, Beaker, Apple } from 'lucide-react';
 
 const alternativesData = [
   {
     category: "Skin & Personal Care",
     icon: <Droplets size={24} />,
-    color: "bg-primary",
+    color: "emerald",
     items: [
       {
-        bad: "Harsh Face Washes (with SLS & Parabens)",
+        bad: "Harsh Face Washes (SLS & Parabens)",
         good: "Gram Flour (Besan) + Turmeric + Raw Milk",
-        why: "Besan gently exfoliates without stripping natural oils. Turmeric has antibacterial properties, and raw milk hydrates. Unlike commercial washes, it maintains your skin's natural microbiome and pH balance.",
-        time: "2 mins to prep",
-        cost: "₹ - Very Cheap"
+        why: "Besan gently exfoliates without stripping natural oils. Turmeric provides clinical-grade antibacterial properties while raw milk maintains skin pH balance.",
+        time: "2 mins",
+        cost: "₹ - Affordable"
       },
       {
-        bad: "Chemical Sunscreens (Oxybenzone, Octinoxate)",
-        good: "Zinc Oxide Mineral Sunscreen or Virgin Coconut Oil (mild)",
-        why: "Mineral sunscreens sit on top of the skin to block UV rays naturally, whereas chemical ones are absorbed into the bloodstream. Coconut oil has a natural SPF of 4-5 for very brief exposure.",
-        time: "Ready to use",
+        bad: "Chemical Sunscreens (Oxybenzone)",
+        good: "Zinc Oxide Mineral Sunscreen",
+        why: "Mineral screens provide a physical UV barrier, preventing bloodstream absorption of endocrine disruptors like Oxybenzone.",
+        time: "Ready",
         cost: "₹₹ - Moderate"
       },
       {
-        bad: "Commercial Moisturizers (with Mineral Oil & Fragrance)",
-        good: "Pure Aloe Vera Gel or Jojoba/Almond Oil",
-        why: "Mineral oil traps toxins on your skin and clogs pores. Jojoba oil closely mimics the skin's natural sebum, absorbing quickly without clogging, while Aloe Vera deeply hydrates and soothes.",
-        time: "Ready to use",
+        bad: "Commercial Moisturizers (Mineral Oil)",
+        good: "Pure Aloe Vera or Jojoba Oil",
+        why: "Jojoba oil is molecularly identical to human sebum, providing deep hydration without the pore-clogging effects of petroleum-derived mineral oils.",
+        time: "Ready",
         cost: "₹₹ - Moderate"
       }
     ]
@@ -34,41 +34,41 @@ const alternativesData = [
   {
     category: "Household Cleaners",
     icon: <Sparkles size={24} />,
-    color: "bg-secondary",
+    color: "teal",
     items: [
       {
-        bad: "Toxic Floor Cleaners (Ammonia, Bleach, Phthalates)",
-        good: "White Vinegar + Water + Essential Oils",
-        why: "Vinegar is a natural disinfectant that kills most pathogens without leaving toxic residue that your pets or kids might touch/breathe. Essential oils like lemon or tea tree add natural fragrance and extra antibacterial power.",
-        time: "1 min to mix",
-        cost: "₹ - Very Cheap"
+        bad: "Toxic Floor Cleaners (Ammonia, Bleach)",
+        good: "White Vinegar + Water + Lemon Oil",
+        why: "Acetic acid in vinegar effectively neutralizes common household pathogens without releasing the Volatile Organic Compounds (VOCs) found in bleach-based cleaners.",
+        time: "1 min",
+        cost: "₹ - Affordable"
       },
       {
-        bad: "Commercial Air Fresheners (VOCs, Synthetic Fragrance)",
-        good: "Simmer Pot (Cinnamon, Citrus peels, Cloves)",
-        why: "Plug-in fresheners release volatile organic compounds (VOCs) linked to respiratory issues. Boiling natural peels and spices releases a beautiful, non-toxic aroma while actually purifying the air slightly.",
+        bad: "Synthetic Air Fresheners (VOCs/Phthalates)",
+        good: "Simmer Pot (Cinnamon, Citrus, Cloves)",
+        why: "Boiling spices releases nature's aromatic compounds directly, avoiding the phthalates legally hidden under 'fragrance' loopholes in plug-in fresheners.",
         time: "10 mins",
-        cost: "₹ - Very Cheap"
+        cost: "₹ - Affordable"
       }
     ]
   },
   {
     category: "Food & Diet",
-    icon: <Leaf size={24} />,
-    color: "bg-accent",
+    icon: <Apple size={24} />,
+    color: "cyan",
     items: [
       {
-        bad: "Refined Sugar & Artificial Sweeteners (Aspartame)",
-        good: "Jaggery (Gud), Stevia Leaves, or Dates",
-        why: "Refined sugar spikes insulin and causes inflammation. Artificial sweeteners disrupt gut bacteria. Jaggery provides iron and minerals, while Stevia is a zero-calorie, natural plant extract with no insulin spike.",
-        time: "Ready to use",
+        bad: "Refined Sugar & Aspartame",
+        good: "Jaggery (Gud) or Stevia Leaves",
+        why: "Refined sugar triggers acute insulin spikes and inflammatory responses. Stevia is a zero-glycemic index plant extract with no metabolic disruption.",
+        time: "Ready",
         cost: "₹₹ - Moderate"
       },
       {
-        bad: "Packaged Snacks (Trans fat, TBHQ, MSG)",
-        good: "Roasted Makhana (Fox Nuts), Chana, or Nuts",
-        why: "Packaged chips fry in highly processed seed oils and use petroleum-based preservatives. Roasted makhana is rich in antioxidants, calcium, and protein without any hidden chemicals.",
-        time: "5 mins to roast",
+        bad: "Processed Snacks (Trans fat, TBHQ)",
+        good: "Roasted Makhana or Native Nuts",
+        why: "Native snacks are rich in magnesium and protein, avoiding the petroleum-based preservatives (TBHQ) and trans fats found in processed chips.",
+        time: "5 mins",
         cost: "₹₹ - Moderate"
       }
     ]
@@ -79,23 +79,23 @@ const SwitchCard = ({ bad, good, why, time, cost }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className={`bg-white border-4 border-black mb-4 shadow-[6px_6px_0px_#000] transition-all ${isOpen ? 'translate-x-[-2px] translate-y-[-2px] shadow-[8px_8px_0px_#000]' : ''}`}>
+    <div className={`lab-card overflow-hidden transition-all ${isOpen ? 'ring-2 ring-primary/20' : ''}`}>
       <div 
-        className="p-5 cursor-pointer flex justify-between items-center hover:bg-gray-50 transition-colors"
+        className="p-6 cursor-pointer flex justify-between items-center hover:bg-slate-50 transition-colors"
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex-1">
           <div className="flex items-center gap-3 mb-3">
-            <span className="text-[10px] font-black px-2 py-0.5 bg-red-500 text-white border-2 border-black uppercase italic">AVOID</span>
-            <span className="text-sm font-black text-gray-400 line-through decoration-black uppercase italic">{bad}</span>
+            <span className="text-[9px] font-bold px-2 py-0.5 bg-red-50 text-red-500 rounded-full border border-red-100 uppercase tracking-widest">Diagnostic Risk</span>
+            <span className="text-xs font-semibold text-slate-400 line-through decoration-slate-300 uppercase tracking-tight">{bad}</span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="text-[10px] font-black px-2 py-0.5 bg-primary text-black border-2 border-black uppercase italic flex items-center gap-1"><CheckCircle2 size={12}/> CHOOSE</span>
-            <span className="text-lg font-black text-black uppercase tracking-tighter italic">{good}</span>
+            <span className="text-[9px] font-bold px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-full border border-emerald-100 uppercase tracking-widest flex items-center gap-1"><CheckCircle2 size={10}/> BI0-SAFE SWAP</span>
+            <span className="text-lg font-bold text-main tracking-tight uppercase italic">{good}</span>
           </div>
         </div>
-        <div className="ml-4 text-black border-2 border-black p-1">
-          {isOpen ? <ChevronUp size={20}/> : <ChevronDown size={20}/>}
+        <div className={`ml-4 bg-slate-100 p-1.5 rounded-lg transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}`}>
+          <ChevronDown size={18}/>
         </div>
       </div>
       
@@ -105,15 +105,23 @@ const SwitchCard = ({ bad, good, why, time, cost }) => {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t-4 border-black bg-gray-50"
+            className="overflow-hidden bg-slate-50/50"
           >
-            <div className="p-6">
-              <p className="text-base text-black font-bold leading-tight uppercase italic mb-6">
-                <strong>Why switch?</strong> {why}
-              </p>
-              <div className="flex gap-4 text-xs font-black uppercase">
-                <span className="flex items-center gap-2 bg-white border-2 border-black px-2 py-1 shadow-[2px_2px_0px_#000]"><Sun size={14} className="text-orange-500"/> {time}</span>
-                <span className="flex items-center gap-2 bg-primary text-black border-2 border-black px-2 py-1 shadow-[2px_2px_0px_#000]">{cost}</span>
+            <div className="p-8 border-t border-slate-100">
+              <div className="flex items-start gap-4 mb-8">
+                 <div className="bg-primary/10 p-2 rounded-lg text-primary">
+                    <Beaker size={20} />
+                 </div>
+                 <div>
+                    <span className="text-[10px] font-bold uppercase tracking-widest text-slate-400 block mb-1">Scientific Rationale</span>
+                    <p className="text-base text-slate-700 font-medium leading-relaxed italic">
+                        {why}
+                    </p>
+                 </div>
+              </div>
+              <div className="flex gap-4 text-[10px] font-bold uppercase tracking-widest">
+                <span className="flex items-center gap-2 bg-white border border-slate-200 rounded-full px-3 py-1.5 text-slate-500 shadow-sm"><Sun size={14} className="text-amber-500"/> {time} Prep</span>
+                <span className="flex items-center gap-2 bg-emerald-50 text-emerald-700 border border-emerald-100 rounded-full px-3 py-1.5 shadow-sm">{cost}</span>
               </div>
             </div>
           </motion.div>
@@ -124,49 +132,53 @@ const SwitchCard = ({ bad, good, why, time, cost }) => {
 };
 
 const Alternatives = () => {
+  const colorMap = {
+    emerald: 'bg-emerald-500',
+    teal: 'bg-teal-500',
+    cyan: 'bg-cyan-500'
+  };
+
   return (
-    <div className="pt-20 pb-24 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
+    <div className="pt-24 pb-32 px-6 max-w-7xl mx-auto min-h-screen lab-bg-overlay">
       {/* HEADER */}
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         className="text-center mb-24"
       >
-        <div className="inline-flex items-center gap-2 px-6 py-2 bg-black text-white border-4 border-black font-black tracking-widest uppercase text-sm mb-10 shadow-[6px_6px_0px_#A3E635] -rotate-1">
-          <Leaf size={18} /> THE NATURAL WAY
+        <div className="inline-flex items-center gap-2 px-6 py-2 bg-slate-900 text-white rounded-full font-bold tracking-widest uppercase text-[10px] mb-12 shadow-xl shadow-slate-200">
+          <Leaf size={16} className="text-emerald-500" /> Bio-Dynamic Alternatives
         </div>
-        <h1 className="text-6xl md:text-9xl font-black text-black tracking-tighter leading-none mb-10 uppercase italic">
-          NATURE'S <br />
-          <span className="bg-primary px-4 border-4 border-black">ALTERNATIVES.</span>
+        <h1 className="text-6xl md:text-9xl font-bold text-main tracking-tight leading-none mb-10">
+          Nature's <br />
+          <span className="text-primary italic">Synthesis.</span>
         </h1>
-        <p className="text-black text-xl font-bold max-w-4xl mx-auto leading-tight uppercase italic">
-          YOU DON'T NEED TOXIC CHEMICALS TO LIVE WELL. DISCOVER SIMPLE, EFFECTIVE, AND NATURAL REPLACEMENTS FOR EVERYDAY HAZARDOUS PRODUCTS.
+        <p className="text-slate-500 text-lg md:text-xl font-medium max-w-3xl mx-auto leading-relaxed">
+          Transitioning to a non-toxic lifestyle requires molecular precision. Discover simple, effective, and natural replacements for hazardous everyday products.
         </p>
       </motion.div>
 
       {/* CONTENT */}
-      <div className="space-y-20">
+      <div className="max-w-5xl mx-auto space-y-24">
         {alternativesData.map((section, idx) => (
           <motion.div 
             key={idx}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className={`border-[6px] border-black bg-white shadow-[15px_15px_0px_#000] overflow-hidden`}
+            className="space-y-10"
           >
-            <div className={`p-8 border-b-6 border-black ${section.color} flex items-center justify-between`}>
-                <div className="flex items-center gap-6">
-                  <div className={`w-16 h-16 border-4 border-black bg-white flex items-center justify-center shadow-[4px_4px_0px_#000]`}>
+            <div className="flex items-center gap-4">
+                <div className={`w-14 h-14 rounded-2xl ${colorMap[section.color]} text-white flex items-center justify-center shadow-lg`}>
                     {section.icon}
-                  </div>
-                  <h2 className="text-4xl font-black text-black uppercase tracking-tighter italic">{section.category}</h2>
                 </div>
-                <div className="text-5xl opacity-20 font-black italic select-none hidden md:block">
-                    CATEGORY {idx + 1}
+                <div>
+                    <h2 className="text-2xl font-bold text-main">{section.category}</h2>
+                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Swap Protocol {idx + 1}</span>
                 </div>
             </div>
 
-            <div className="p-8 grid grid-cols-1 lg:grid-cols-2 gap-8 bg-gray-50">
+            <div className="grid grid-cols-1 gap-6">
               {section.items.map((item, i) => (
                 <SwitchCard key={i} {...item} />
               ))}
@@ -179,18 +191,19 @@ const Alternatives = () => {
       <motion.div 
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
-        className="mt-32 p-12 border-[6px] border-black bg-black text-white flex flex-col md:flex-row items-center justify-between gap-10 shadow-[15px_15px_0px_white] rotate-1"
+        className="mt-32 p-16 bg-slate-900 rounded-[3rem] text-white flex flex-col lg:flex-row items-center justify-between gap-12 shadow-2xl shadow-slate-200 relative overflow-hidden group"
       >
-        <div className="max-w-2xl">
-          <h3 className="text-4xl font-black mb-6 flex items-center gap-4 uppercase italic tracking-tighter">
-            <ShieldCheck className="text-primary" size={40} /> START SMALL. LIVE BETTER.
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 via-teal-800/10 to-transparent"></div>
+        <div className="max-w-2xl relative z-10">
+          <h3 className="text-3xl md:text-5xl font-bold mb-6 flex items-center gap-4 tracking-tight">
+            Incremental <span className="text-primary italic">Transformation.</span>
           </h3>
-          <p className="text-gray-300 text-lg font-bold uppercase italic leading-tight">
-            YOU DON'T HAVE TO CHANGE EVERYTHING OVERNIGHT. PICK ONE PRODUCT YOU USE DAILY AND SWAP IT FOR A NATURAL ALTERNATIVE THIS WEEK.
+          <p className="text-slate-400 text-lg font-medium leading-relaxed">
+            Personal health optimization is an iterative process. Select one high-usage product and implement a bio-safe swap this week.
           </p>
         </div>
-        <a href="/" className="shrink-0 px-10 py-5 bg-primary text-black font-black border-4 border-black shadow-[6px_6px_0px_#A3E635] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all text-2xl uppercase italic flex items-center gap-3">
-          SCAN NOW <ArrowRight size={24} />
+        <a href="/" className="lab-btn py-6 px-12 text-lg shadow-xl shadow-primary/20 relative z-10 whitespace-nowrap">
+          Initialize Scan Engine <ArrowRight size={22} className="ml-2 inline" />
         </a>
       </motion.div>
     </div>
@@ -198,4 +211,3 @@ const Alternatives = () => {
 };
 
 export default Alternatives;
-

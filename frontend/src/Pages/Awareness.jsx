@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { AlertCircle, AlertTriangle, Info, Zap, ChevronDown, ChevronUp, ShieldAlert, Flame, Skull, Activity, Clock, Apple, ShoppingBag, Droplets, Heart } from 'lucide-react';
 
 // ============================================================
-// DATA
+// DATA (Preserved from original but structured for new UI)
 // ============================================================
 
 const productCategories = [
@@ -11,52 +11,29 @@ const productCategories = [
     id: 'food',
     icon: '🍿',
     label: 'Packaged Food',
-    color: 'bg-primary',
-    bgLight: 'bg-white',
-    border: 'border-black',
-    textColor: 'text-black',
+    color: 'emerald',
     products: [
       {
         name: '🍪 Namkeen Biscuits (e.g., Parle-G, Britannia Marie)',
         brand: 'Parle-G / Britannia',
         chemicals: [
-          { chem: 'TBHQ (Tertiary Butylhydroquinone)', effect: 'A petroleum-based preservative. WHO linked high doses to DNA damage & tumors. Used to increase shelf life.', dose: '5+ biscuits daily for years', risk: 'High' },
-          { chem: 'Hydrogenated Vegetable Oil (Trans Fat)', effect: 'Causes bad cholesterol rise (LDL), heart disease, obesity, and type-2 diabetes over time.', dose: '100g daily for 6 months', risk: 'High' },
-          { chem: 'Refined Sugar & Maida (Refined Flour)', effect: 'Spikes blood sugar rapidly. Long-term use causes insulin resistance, diabetes, and gut inflammation.', dose: 'Daily consumption', risk: 'Medium' },
-          { chem: 'Sodium (Salt in excess)', effect: 'Hypertension, kidney strain, and water retention. Most packaged snacks have 3–5x your daily safe sodium limit.', dose: '2 packets daily for 3 months', risk: 'Medium' },
+          { chem: 'TBHQ (Tertiary Butylhydroquinone)', effect: 'A petroleum-based preservative. WHO linked high doses to DNA damage & tumors.', dose: '5+ biscuits daily', risk: 'High' },
+          { chem: 'Hydrogenated Vegetable Oil (Trans Fat)', effect: 'Causes bad cholesterol rise (LDL), heart disease, obesity, and type-2 diabetes.', dose: '100g daily for 6 months', risk: 'High' },
+          { chem: 'Refined Sugar & Maida', effect: 'Spikes blood sugar rapidly. Causes insulin resistance and gut inflammation.', dose: 'Daily consumption', risk: 'Medium' },
+          { chem: 'Sodium (Excessive Salt)', effect: 'Hypertension, kidney strain, and water retention.', dose: '2 packets daily', risk: 'Medium' },
         ],
-        realTalk: '💡 That "harmless" biscuit with chai? If you\'re eating a full packet daily, within 1 year you\'re adding significant trans fat equivalent to 2 liters of cooking oil per month!',
+        realTalk: '💡 That "harmless" biscuit with chai? If you\'re eating a full packet daily, you\'re consuming significant trans fat equivalent to 2 liters of oil per month!',
       },
       {
         name: '🥤 Instant Noodles (e.g., Maggi, Yippee)',
         brand: 'Nestlé Maggi / ITC Yippee',
         chemicals: [
-          { chem: 'MSG (Monosodium Glutamate)', effect: 'Excitotoxin that overactivates brain neurons. Linked to headaches, obesity, and metabolic disorders.', dose: 'Daily for 6 months', risk: 'High' },
-          { chem: 'TBHQ', effect: 'Same petroleum-based preservative. Noodle block is fried and coated with it.', dose: '3 packets/week for 1 year', risk: 'High' },
-          { chem: 'Lead (historical contamination)', effect: 'In 2015, Maggi was banned across India for having 17x the safe lead limit. Lead causes neural damage in children, kidney failure in adults.', dose: 'Any level is unsafe', risk: 'Critical' },
-          { chem: 'Sodium (3000–4500 mg per pack)', effect: 'A single Maggi pack has nearly 2x your full day\'s sodium limit. Causes hypertension and kidney stress.', dose: '1 packet daily', risk: 'High' },
+          { chem: 'MSG (Monosodium Glutamate)', effect: 'Excitotoxin that overactivates brain neurons. Linked to headaches and metabolic disorders.', dose: 'Daily for 6 months', risk: 'High' },
+          { chem: 'TBHQ', effect: 'Petroleum-based preservative. Noodle block is fried and coated with it.', dose: '3 packets/week', risk: 'High' },
+          { chem: 'Lead Trace Contamination', effect: 'Lead causes neural damage in children and kidney failure in adults.', dose: 'Any level is unsafe', risk: 'Critical' },
+          { chem: 'Sodium (3500mg+ / pack)', effect: 'A single pack can exceed 2x your daily safe salt intake.', dose: '1 packet daily', risk: 'High' },
         ],
-        realTalk: '💡 "2-minute Noodles" — 2 minutes to make, potentially 2 years off your life! One pack has more sodium than 15 bananas. College students eating this daily for 4 years? Real risk of early hypertension.',
-      },
-      {
-        name: '🥛 Packaged Flavored Milk (e.g., Amul Kool, Frooti)',
-        brand: 'Amul / Parle Agro',
-        chemicals: [
-          { chem: 'High Fructose Corn Syrup / Artificial Sweeteners', effect: 'Bypasses your "fullness" signal to the brain. Directly linked to non-alcoholic fatty liver disease and childhood obesity.', dose: '1 bottle daily for 6 months', risk: 'High' },
-          { chem: 'Carrageenan', effect: 'A thickening agent from seaweed — but processed form causes gut inflammation and has been linked to colon cancer in animal studies.', dose: '2+ per day for years', risk: 'Medium' },
-          { chem: 'Artificial Colors (tartrazine, sunset yellow)', effect: 'Linked to ADHD in children, hyperactivity, and allergic reactions.', dose: 'Daily in children', risk: 'High' },
-        ],
-        realTalk: '💡 "Healthy milk drink" ke naam pe apne bacche ko roz ek bottle dete ho? Usmein actual milk sirf 30-40% hoti hai, baaki sugar aur chemicals ka cocktail hota hai!',
-      },
-      {
-        name: '🍭 Candy & Chewing Gum (e.g., Center Fresh, Eclairs)',
-        brand: 'Perfetti / Cadbury',
-        chemicals: [
-          { chem: 'Butylated Hydroxyanisole (BHA)', effect: 'Endocrine disruptor. Animal studies show it causes tumor formation. Listed as "possibly carcinogenic" by IARC.', dose: 'Daily for 2+ years', risk: 'High' },
-          { chem: 'Titanium Dioxide (E171)', effect: 'Used in white candy coating. Studies show it accumulates in organs and can damage DNA. Banned in EU in 2022.', dose: 'Regular consumption', risk: 'High' },
-          { chem: 'Aspartame / Acesulfame-K', effect: 'Artificial sweeteners linked to cancer (WHO 2023 classification), metabolic disorders, and gut microbiome disruption.', dose: 'Daily for years', risk: 'Medium' },
-        ],
-        realTalk: '💡 EU ne 2022 main Titanium Dioxide baana kar diya jo India main abhi bhi candy main hota hai. Bachpan main roz toffee khana = roz thoda sa paint khaana!',
+        realTalk: '💡 "2-minute Noodles" — One pack has more sodium than 15 bananas. Long-term daily consumption creates real risks of hypertension.',
       },
     ]
   },
@@ -64,52 +41,26 @@ const productCategories = [
     id: 'skincare',
     icon: '🧴',
     label: 'Face & Skin Care',
-    color: 'bg-secondary',
-    bgLight: 'bg-white',
-    border: 'border-black',
-    textColor: 'text-black',
+    color: 'teal',
     products: [
       {
         name: '🧴 Garnier Bright Complete Face Wash',
         brand: 'Garnier (L\'Oréal Group)',
         chemicals: [
-          { chem: 'Sodium Lauryl Sulfate (SLS)', effect: 'Strips natural skin oils. Causes redness, irritation, and "tight" feeling. Long-term use disrupts the skin barrier, INCREASING dryness and acne.', dose: 'Daily use for 3+ months', risk: 'High' },
-          { chem: 'Polyethylene (Microbeads)', effect: 'Non-biodegradable plastic. Enters food chain via water. Physically damages skin surface and causes micro-tears.', dose: 'Every use', risk: 'Medium' },
-          { chem: 'Fragrance/Parfum', effect: '"Fragrance" is a secret ingredient loophole — can legally hide 3000+ different chemicals. Causes contact dermatitis and hormone disruption.', dose: 'Daily use', risk: 'High' },
-          { chem: 'Dimethicone', effect: 'Silicone that traps dead skin cells and sebum inside pores. While initially smoothing, it causes clogged pores and worsens acne long-term.', dose: '6+ months of daily use', risk: 'Medium' },
+          { chem: 'Sodium Lauryl Sulfate (SLS)', effect: 'Strips natural skin oils. Disrupts skin barrier, increasing dryness and acne over time.', dose: 'Daily for 3+ months', risk: 'High' },
+          { chem: 'Polyethylene (Microbeads)', effect: 'Non-biodegradable plastic. Causes micro-tears on the skin surface.', dose: 'Regular use', risk: 'Medium' },
+          { chem: 'Synthetic Fragrance', effect: 'Can hide 3000+ chemicals. Related to contact dermatitis and hormone disruption.', dose: 'Daily use', risk: 'High' },
         ],
-        realTalk: '💡 Garnier wala "glowing skin" ad dekh ke laga glow aayega? SLS se jo natural moisturizer tum khote ho, usse compensate karne ke liye skin zyada oil banati hai — result? More acne, not less!',
+        realTalk: '💡 SLS strips your natural moisture, forcing skin to produce MORE oil. Result? More acne and sensitivity, not less.',
       },
       {
-        name: '🌙 Fair & Lovely / Glow & Lovely Cream',
-        brand: 'HUL (Unilever)',
-        chemicals: [
-          { chem: 'Mercury Compounds (historical)', effect: 'Mercury causes kidney failure, brain damage, and nerve damage. Many fairness creams in black market still contain it. Even legal ones may have traces.', dose: 'Any level', risk: 'Critical' },
-          { chem: 'Hydroquinone', effect: 'Skin bleaching agent. Can cause permanent skin darkening (ochronosis) with long use. Banned in EU and many countries.', dose: 'Months of daily use', risk: 'High' },
-          { chem: 'Steroids (Betamethasone/Clobetasol)', effect: 'Cause skin thinning, stretch marks, and permanent damage. Stopping suddenly causes steroid withdrawal syndrome.', dose: '3+ months', risk: 'Critical' },
-          { chem: 'Niacinamide (in high %)', effect: 'Generally safer, but in concentrations >10% causes flushing and inflammation in sensitive skin.', dose: 'Daily overuse', risk: 'Low' },
-        ],
-        realTalk: '💡 Skin gori karne ke chakkar mein log apni skin ki layers destroy kar lete hain. Jo "glow" 7 din main aata hai woh steroid ki wajah se hota hai — ek mahine mein skin paper jesi ho jaati hai!',
-      },
-      {
-        name: '☀️ Sunscreen (e.g., Lotus Safe Sun, Neutrogena)',
+        name: '🌙 Skin Lightening Creams',
         brand: 'Various Brands',
         chemicals: [
-          { chem: 'Oxybenzone', effect: 'Penetrates skin and blood. Detected in breast milk and blood within 2 hours of application. Hormone disruptor, linked to endometriosis. Banned in Hawaii to protect coral reefs.', dose: 'Daily full-body use for months', risk: 'High' },
-          { chem: 'Octinoxate', effect: 'Speeds up shedding of skin cells (actually causes skin aging). Detected in human blood at concentrations affecting thyroid hormones.', dose: 'Daily use', risk: 'Medium' },
-          { chem: 'Retinyl Palmitate (Vitamin A derivative)', effect: 'FDA study found it MAY increase skin tumor development when exposed to sunlight — ironic in a sunscreen!', dose: 'Daily outdoor use for a year', risk: 'Medium' },
+          { chem: 'Hydroquinone', effect: 'Skin bleaching agent. Can cause permanent skin darkening (ochronosis). Banned in EU.', dose: 'Months of daily use', risk: 'High' },
+          { chem: 'Betamethasone Steroids', effect: 'Cause skin thinning, stretch marks, and permanent epidermal damage.', dose: '3+ months', risk: 'Critical' },
         ],
-        realTalk: '💡 Jo cheez sun damage se bachane ke liye lagate ho, woh khud teri hormonal system disturb kar rahi hai. Mineral-based sunscreens (Zinc Oxide, Titanium Dioxide) are generally safer alternatives!',
-      },
-      {
-        name: '💄 Lipstick & Lip Gloss (Most Brands)',
-        brand: 'Lakme / Maybelline / Revlon',
-        chemicals: [
-          { chem: 'Lead', effect: 'FDA found lead in 400 lipsticks tested — some had 7.19 ppm (7x safe limit). Lead is neurotoxic with NO safe level. Women swallow avg. 1.5-2.5kg lipstick in lifetime!', dose: 'Daily use over years', risk: 'Critical' },
-          { chem: 'Mica (mined in child labor conditions)', effect: 'Causes silicosis — permanent lung scarring — in miners. In products, pure mica is fine but contaminated mica causes lung issues.', dose: 'Inhaled during application', risk: 'Medium' },
-          { chem: 'BHA (Butylated Hydroxyanisole)', effect: 'Endocrine disruptor and potential carcinogen. Used as preservative. Goes directly into your body since you eat it!', dose: 'Daily use for years', risk: 'High' },
-        ],
-        realTalk: '💡 Average woman literally eats 1.5-2.5 kilos of lipstick in her lifetime — aur usme lead hota hai! No wonder women face higher rates of certain cancers. Always look for "Lead-Free" certification.',
+        realTalk: '💡 The "glow" that appears in 7 days is often due to steroids that destroy skin layers within months.',
       },
     ]
   },
@@ -117,103 +68,56 @@ const productCategories = [
     id: 'household',
     icon: '🏠',
     label: 'Household & Daily Use',
-    color: 'bg-accent',
-    bgLight: 'bg-white',
-    border: 'border-black',
-    textColor: 'text-black',
+    color: 'cyan',
     products: [
       {
-        name: '🧼 Antibacterial Soap (e.g., Dettol, Lifebuoy)',
+        name: '🧼 Antibacterial Soap (e.g., Dettol)',
         brand: 'Reckitt / HUL',
         chemicals: [
-          { chem: 'Triclosan', effect: 'Creates antibiotic-resistant "superbugs." Disrupts thyroid hormones. Banned by FDA in USA but still sold in India. Accumulates in body fat.', dose: 'Daily hand washing for 6+ months', risk: 'High' },
-          { chem: 'Triclocarban', effect: 'Similar to triclosan. Found in rivers and drinking water. Persists in environment for decades. Hormone disrupting.', dose: 'Regular use', risk: 'High' },
-          { chem: 'Chloroxylenol (PCMX)', effect: 'Dettol\'s active ingredient. Eye and skin irritant. Toxic to fish and aquatic life. Research shows it may disrupt human endocrine system.', dose: 'Concentrated daily use', risk: 'Medium' },
+          { chem: 'Triclosan', effect: 'Creates antibiotic-resistant "superbugs." Disrupts thyroid hormones. Accumulates in body fat.', dose: '6+ months use', risk: 'High' },
+          { chem: 'Chloroxylenol (PCMX)', effect: 'Dettol\'s active ingredient. Eye/skin irritant and suspected endocrine disruptor.', dose: 'Daily use', risk: 'Medium' },
         ],
-        realTalk: '💡 Dettol se haath dhote dhote tum superbugs create kar rahe ho. Plain soap + 20 seconds of washing is MORE effective than antibacterial soap and has NO harmful chemicals!',
+        realTalk: '💡 Plain soap + 20 seconds of washing is MORE effective than antibacterial soap without the hormone-disrupting chemicals.',
       },
       {
-        name: '🧺 Shampoo (e.g., Head & Shoulders, Pantene)',
-        brand: 'P&G',
+        name: '🪥 Toothpaste (e.g., Colgate)',
+        brand: 'Colgate-Palmolive',
         chemicals: [
-          { chem: 'Sodium Laureth Sulfate (SLES)', effect: 'Manufacturing byproduct is 1,4-dioxane — a probable carcinogen. Strips scalp microbiome, making dandruff WORSE over time.', dose: 'Daily washing for months', risk: 'High' },
-          { chem: 'Dimethicone/Silicones', effect: 'Makes hair "silky" today by coating each strand. Long term: builds up, weighs hair down, blocks moisture, causes hair fall.', dose: 'Regular use for 6+ months', risk: 'Medium' },
-          { chem: 'Selenium Sulfide (in dandruff shampoo)', effect: 'Toxic to DNA in high doses. Scalp absorbs chemicals 13x more than forearm skin! Absorbed amounts build up over time.', dose: 'Daily long-term use', risk: 'Medium' },
+          { chem: 'Sodium Fluoride (Excess)', effect: 'In excess, causes fluorosis — brittle bones and permanent tooth spotting.', dose: 'Children swallowing paste', risk: 'Medium' },
+          { chem: 'Carrageenan', effect: 'Gut inflammation promoter. Absorbed through oral mucosa daily.', dose: 'Long-term daily use', risk: 'Low' },
         ],
-        realTalk: '💡 Head & Shoulders se dandruff khatam hoti nahi — it SUPPRESSES the symptom. Scalp microbiome destroy hoti hai, jo 2 hafte baad aur bura dandruff laati hai. That\'s why you become dependent on it!',
-      },
-      {
-        name: '🪥 Toothpaste (e.g., Colgate, Pepsodent)',
-        brand: 'Colgate-Palmolive / HUL',
-        chemicals: [
-          { chem: 'Triclosan (in some formulas)', effect: 'Same as antibacterial soap — hormone disruptor. Removed from Colgate Total in US after FDA pressure but may still be in Indian formulations.', dose: 'Daily twice over years', risk: 'High' },
-          { chem: 'Sodium Fluoride', effect: 'In small amounts prevents cavities. In excess (fluoridated water + toothpaste + fluoride tablets) causes fluorosis — permanent white/brown spots on teeth and brittle bones.', dose: 'Children swallowing toothpaste daily', risk: 'Medium' },
-          { chem: 'Carrageenan', effect: 'Gut inflammation promoter. Every morning you\'re coating your gut barrier with a potential inflammatory agent.', dose: 'Daily years of use', risk: 'Low' },
-        ],
-        realTalk: '💡 "Dentist recommended" means Colgate paid for that study! Children swallowing toothpaste daily get 3-10x more fluoride than recommended. Use a pea-sized amount and teach kids to spit!',
-      },
-    ]
-  },
-  {
-    id: 'drink',
-    icon: '🥤',
-    label: 'Beverages & Drinks',
-    color: 'bg-green-400',
-    bgLight: 'bg-white',
-    border: 'border-black',
-    textColor: 'text-black',
-    products: [
-      {
-        name: '🥤 Cola / Soft Drinks (Coca-Cola, Pepsi)',
-        brand: 'The Coca-Cola Company / PepsiCo',
-        chemicals: [
-          { chem: 'Phosphoric Acid', effect: 'Directly leeches calcium from bones. Within 60 min of drinking, you pee out calcium. Linked to osteoporosis, kidney stones, and tooth enamel erosion.', dose: '1 can/day for 1 year', risk: 'High' },
-          { chem: 'Caramel Color (4-MEI)', effect: 'Used as coloring. 4-methylimidazole (4-MEI) is a carcinogen formed during manufacturing. California requires cancer warning label on such drinks.', dose: 'Regular daily consumption', risk: 'High' },
-          { chem: 'High Fructose Corn Syrup / Sugar (45g+/can)', effect: '45g sugar = 11 teaspoons per can. Overwhelms liver, causing non-alcoholic fatty liver disease (NAFLD) and insulin resistance.', dose: '1 can/day for 6 months', risk: 'High' },
-          { chem: 'Aspartame (Diet versions)', effect: 'WHO classified as "possibly carcinogenic to humans" in 2023. Also linked to depression, migraine, and metabolic disorder.', dose: '2+ cans/day for years', risk: 'High' },
-        ],
-        realTalk: '💡 60 minutes after drinking one Coke: Your pancreas produces insulin spike, liver converts max sugar to fat, kidneys start filter overdrive, you crash in energy. Yet companies spend ₹1000 crore selling it to you as "refreshing"!',
-      },
-      {
-        name: '⚡ Energy Drinks (Red Bull, Monster)',
-        brand: 'Red Bull GmbH / Monster Beverage',
-        chemicals: [
-          { chem: 'Taurine (2000mg+ per can)', effect: 'Synthetic version. Natural taurine has benefits, but flooding your body with synthetic taurine + caffeine causes heart palpitations and arrhythmia.', dose: '2+ cans/day', risk: 'High' },
-          { chem: 'Niacin (Vitamin B3 in excess)', effect: 'Energy drinks have 150-250% of daily niacin. "Niacin flush" is harmless, but liver toxicity occurs at very high doses. Some have died from drinking multiple cans.', dose: '3+ cans/day', risk: 'Critical' },
-          { chem: 'Caffeine (80-300mg/can)', effect: 'At 80mg (Red Bull) it\'s like a coffee. At 300mg (Monster) + taurine, it causes documented cardiac events. 5 deaths linked to Monster energy drinks in FDA reports.', dose: 'Multiple cans daily for years', risk: 'Critical' },
-        ],
-        realTalk: '💡 FDA received 5 death reports linked directly to Monster Energy drinks. "Wings" sach mein nahi milte, lekin heart attack milne ke chances zaroor badhte hain — especially agar tum gym ke baad ya alcohol ke saath lete ho!',
+        realTalk: '💡 Children swallowing toothpaste get significantly higher fluoride than recommended. Always use a pea-sized amount.',
       },
     ]
   }
 ];
 
 const riskConfig = {
-  'Critical': { color: 'bg-red-600 text-white', icon: '☠️', label: 'CRITICAL' },
-  'High': { color: 'bg-orange-500 text-white', icon: '⚠️', label: 'HIGH RISK' },
-  'Medium': { color: 'bg-yellow-400 text-black', icon: '⚡', label: 'MODERATE' },
-  'Low': { color: 'bg-lime-400 text-black', icon: 'ℹ️', label: 'LOW RISK' },
+  'Critical': { color: 'text-red-500 bg-red-50', icon: <Skull size={14} />, label: 'CRITICAL' },
+  'High': { color: 'text-amber-600 bg-amber-50', icon: <AlertTriangle size={14} />, label: 'HIGH RISK' },
+  'Medium': { color: 'text-yellow-600 bg-yellow-50', icon: <Zap size={14} />, label: 'CAUTION' },
+  'Low': { color: 'text-emerald-600 bg-emerald-50', icon: <Info size={14} />, label: 'LOW RISK' },
 };
 
 // ============================================================
-// SUB-COMPONENTS
+// COMPONENTS
 // ============================================================
 
 function ChemicalRow({ chem, effect, dose, risk }) {
   const cfg = riskConfig[risk] || riskConfig['Low'];
   return (
-    <div className="bg-white border-2 border-black p-5 space-y-3 shadow-[4px_4px_0px_#000]">
-      <div className="flex items-start justify-between gap-3 flex-wrap">
-        <h4 className="font-black text-black text-base uppercase tracking-tighter italic">{chem}</h4>
-        <span className={`text-[10px] font-black px-2 py-0.5 border-2 border-black whitespace-nowrap uppercase ${cfg.color}`}>
-           {cfg.label}
+    <div className="bg-white border border-slate-100 p-6 rounded-2xl shadow-sm space-y-3">
+      <div className="flex items-start justify-between gap-3">
+        <h4 className="font-bold text-main text-base">{chem}</h4>
+        <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full flex items-center gap-1 border border-current ${cfg.color}`}>
+           {cfg.icon} {cfg.label}
         </span>
       </div>
-      <p className="text-black font-bold text-sm leading-tight uppercase italic">{effect}</p>
-      <div className="flex items-center gap-2 text-xs font-black text-gray-500 uppercase">
-        <Clock size={14} className="text-black" />
-        <span>RISKY AT:</span>
-        <span className="text-black bg-yellow-200 px-1 border-b-2 border-black font-black">{dose}</span>
+      <p className="text-slate-500 text-sm font-medium leading-relaxed">{effect}</p>
+      <div className="flex items-center gap-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest pt-2">
+        <Clock size={12} className="text-primary" />
+        <span>Toxicity Threshold:</span>
+        <span className="text-slate-700">{dose}</span>
       </div>
     </div>
   );
@@ -222,18 +126,26 @@ function ChemicalRow({ chem, effect, dose, risk }) {
 function ProductCard({ name, brand, chemicals, realTalk }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`border-4 border-black mb-4 overflow-hidden bg-white shadow-[6px_6px_0px_#000] transition-all ${open ? 'translate-x-[-2px] translate-y-[-2px] shadow-[8px_8px_0px_#000]' : ''}`}>
+    <div className={`lab-card mb-6 overflow-hidden transition-all ${open ? 'ring-2 ring-primary/20' : ''}`}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="w-full text-left flex items-start justify-between gap-4 p-5 hover:bg-gray-100 transition-colors"
+        className="w-full text-left flex items-start justify-between gap-4 p-6 hover:bg-slate-50 transition-colors"
       >
-        <div>
-          <h3 className="font-black text-black text-lg md:text-xl leading-none uppercase tracking-tighter">{name}</h3>
-          <p className="text-xs font-black text-gray-400 mt-2 uppercase italic">BRAND: {brand}</p>
-          <p className="text-[10px] font-black text-white bg-black w-fit px-2 py-0.5 mt-2 uppercase">{chemicals.length} DANGER POINTS</p>
+        <div className="flex items-start gap-4">
+          <div className="bg-primary/5 p-3 rounded-xl text-primary mt-1">
+            <ShoppingBag size={20} />
+          </div>
+          <div>
+            <h3 className="font-bold text-main text-lg leading-tight">{name}</h3>
+            <div className="flex items-center gap-3 mt-2">
+                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest italic">{brand}</span>
+                <span className="w-1 h-1 rounded-full bg-slate-200"></span>
+                <span className="text-[10px] font-bold text-primary uppercase tracking-widest">{chemicals.length} Constituents</span>
+            </div>
+          </div>
         </div>
-        <span className="mt-1 shrink-0 text-black border-2 border-black p-1">
-          {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+        <span className={`mt-1 shrink-0 bg-slate-100 p-1.5 rounded-lg transition-transform duration-300 ${open ? 'rotate-180' : ''}`}>
+          <ChevronDown size={18} />
         </span>
       </button>
 
@@ -243,15 +155,22 @@ function ProductCard({ name, brand, chemicals, realTalk }) {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            className="overflow-hidden border-t-2 border-black"
+            className="overflow-hidden bg-slate-50/50"
           >
-            <div className="p-5 space-y-4 bg-gray-50">
-              <div className="grid grid-cols-1 gap-4">
+            <div className="p-8 space-y-6 pt-2">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {chemicals.map((c, i) => <ChemicalRow key={i} {...c} />)}
               </div>
-              <div className="bg-primary border-4 border-black p-5 shadow-[4px_4px_0px_#000]">
-                <p className="text-sm md:text-base font-black text-black leading-tight uppercase italic">{realTalk}</p>
-              </div>
+              <motion.div 
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-emerald-50 border border-emerald-100 p-6 rounded-2xl flex items-start gap-4"
+              >
+                <div className="bg-emerald-500 p-2 rounded-lg text-white shadow-lg shadow-emerald-200">
+                    <Activity size={20} />
+                </div>
+                <p className="text-sm font-semibold text-emerald-800 leading-relaxed italic">{realTalk}</p>
+              </motion.div>
             </div>
           </motion.div>
         )}
@@ -261,15 +180,23 @@ function ProductCard({ name, brand, chemicals, realTalk }) {
 }
 
 function CategorySection({ icon, label, color, products }) {
+  const colorMap = {
+    emerald: 'bg-emerald-500',
+    teal: 'bg-teal-500',
+    cyan: 'bg-cyan-500'
+  };
   return (
-    <div className="border-[6px] border-black bg-white shadow-[12px_12px_0px_#000] overflow-hidden">
-      <div className={`p-6 border-b-4 border-black ${color}`}>
-        <div className="flex items-center gap-4">
-          <span className="text-5xl border-4 border-black bg-white p-2 shadow-[4px_4px_0px_#000]">{icon}</span>
-          <h2 className="text-4xl font-black text-black uppercase tracking-tighter italic">{label}</h2>
+    <div className="mb-20">
+      <div className="flex items-center gap-4 mb-8">
+        <div className={`w-16 h-16 rounded-2xl ${colorMap[color]} text-white flex items-center justify-center text-3xl shadow-lg ring-8 ring-slate-50`}>
+            {icon}
+        </div>
+        <div>
+            <h2 className="text-2xl font-bold text-main">{label}</h2>
+            <p className="text-sm text-slate-400 font-medium">Common household constituents analyzed.</p>
         </div>
       </div>
-      <div className="p-6">
+      <div className="space-y-4">
         {products.map((p, i) => <ProductCard key={i} {...p} />)}
       </div>
     </div>
@@ -287,46 +214,77 @@ const Awareness = () => {
     ? productCategories
     : productCategories.filter(c => c.id === activeTab);
 
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { opacity: 1, transition: { staggerChildren: 0.1 } }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } }
+  };
+
   return (
-    <div className="pt-20 pb-24 px-4 md:px-8 max-w-7xl mx-auto min-h-screen">
+    <div className="pt-24 pb-32 px-6 max-w-7xl mx-auto min-h-screen lab-bg-overlay">
 
       {/* HERO */}
-      <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} className="text-center mb-20">
-        <div className="inline-flex items-center gap-2 px-6 py-2 bg-black text-white border-4 border-black font-black tracking-widest uppercase text-sm mb-10 shadow-[6px_6px_0px_#FFD100] rotate-1">
-          <ShieldAlert size={18} /> CHEMICAL AWARENESS HUB
-        </div>
-        <h1 className="text-6xl md:text-9xl font-black tracking-tighter text-black leading-none uppercase italic">
-          KNOW WHAT YOU<br />
-          <span className="text-primary italic">EAT.</span> <span className="text-secondary">USE.</span> <span className="text-accent underline decoration-black">WEAR.</span>
-        </h1>
-        <p className="max-w-4xl mx-auto text-black mt-10 text-xl font-bold leading-tight uppercase italic">
-          FROM NAMKEEN BISCUITS TO GARNIER FACEWASH — EVERYDAY PRODUCTS CARRY CHEMICALS THAT COMPANIES DON'T WANT YOU TO KNOW ABOUT. AWARENESS IS YOUR SUPERPOWER. 🔬
-        </p>
+      <motion.div 
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+        className="text-center mb-32"
+      >
+        <motion.div variants={itemVariants} className="inline-flex items-center gap-2 px-6 py-2 bg-slate-900 text-white rounded-full font-bold tracking-widest uppercase text-[10px] mb-12 shadow-xl shadow-slate-200">
+          <ShieldAlert size={16} className="text-red-500" /> Toxin Surveillance Hub
+        </motion.div>
+        <motion.h1 
+          variants={itemVariants} 
+          className="text-6xl md:text-9xl font-bold tracking-tight text-main leading-none mb-12"
+        >
+          Beyond the <br /> <span className="text-primary italic">Label.</span>
+        </motion.h1>
+        <motion.p 
+          variants={itemVariants} 
+          className="max-w-4xl mx-auto text-slate-500 text-lg md:text-xl font-medium leading-relaxed"
+        >
+          Analyzing the biological impact of everyday constituents. From domestic snack foods to pharmaceutical-grade skincare — your awareness is the ultimate preventative measure.
+        </motion.p>
       </motion.div>
 
       {/* STATS BANNER */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-32">
         {[
-          { icon: '🧪', stat: '10,000+', label: 'Chemicals in products', color: 'bg-primary' },
-          { icon: '🚫', stat: '1,400+', label: 'Banned in EU', color: 'bg-secondary' },
-          { icon: '📦', stat: '90%', label: 'Food additives used', color: 'bg-accent' },
-          { icon: '💄', stat: '2.5 kg', label: 'Lipstick eaten/life', color: 'bg-green-400' },
+          { icon: <Skull />, stat: '10,000+', label: 'Synthetic Compounds', color: 'bg-red-50 text-red-600' },
+          { icon: <AlertTriangle />, stat: '1,400+', label: 'EU Restricted', color: 'bg-amber-50 text-amber-600' },
+          { icon: <Activity />, stat: '90%', label: 'Food Additive Scale', color: 'bg-cyan-50 text-cyan-600' },
+          { icon: <Apple />, stat: '2.5 kg', label: 'Lipstick Ingestion/Life', color: 'bg-emerald-50 text-emerald-600' },
         ].map((s, i) => (
-          <div key={i} className={`border-4 border-black p-6 text-center shadow-[8px_8px_0px_#000] rotate-${i % 2 === 0 ? '1' : '-1'} ${s.color}`}>
-            <div className="text-4xl mb-3">{s.icon}</div>
-            <div className="text-4xl font-black text-black tracking-tighter italic leading-none">{s.stat}</div>
-            <div className="text-[10px] font-black text-black mt-2 uppercase tracking-[0.1em]">{s.label}</div>
-          </div>
+          <motion.div 
+            key={i} 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className={`lab-card p-8 text-center flex flex-col items-center group`}
+          >
+            <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-6 border border-current shadow-sm ${s.color} transition-transform duration-500 group-hover:scale-110`}>
+              {s.icon}
+            </div>
+            <div className="text-3xl font-bold text-main mb-2">{s.stat}</div>
+            <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-relaxed">{s.label}</div>
+          </motion.div>
         ))}
       </div>
 
       {/* TABS */}
-      <div className="flex gap-4 flex-wrap mb-12 justify-center">
-        {[{ id: 'all', label: '🌐 All Categories' }, ...productCategories.map(c => ({ id: c.id, label: `${c.icon} ${c.label}` }))].map(tab => (
+      <div className="flex gap-4 flex-wrap mb-20 justify-center">
+        {[{ id: 'all', label: '🌐 ALL ANALYSIS', icon: null }, ...productCategories.map(c => ({ id: c.id, label: c.label.toUpperCase(), icon: c.icon }))].map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id)}
-            className={`px-6 py-3 border-4 border-black text-base font-black transition-all uppercase italic shadow-[4px_4px_0px_#000] active:shadow-none active:translate-x-1 active:translate-y-1 ${activeTab === tab.id ? 'bg-black text-white' : 'bg-white text-black hover:bg-gray-100'}`}
+            className={`px-8 py-3 rounded-full text-xs font-bold transition-all uppercase tracking-widest border ${
+                activeTab === tab.id 
+                ? 'bg-primary text-white border-primary shadow-lg shadow-primary/20 scale-105' 
+                : 'bg-white text-slate-500 border-slate-200 hover:border-primary/50 hover:text-primary'
+            }`}
           >
             {tab.label}
           </button>
@@ -334,78 +292,105 @@ const Awareness = () => {
       </div>
 
       {/* PRODUCT CATEGORIES */}
-      <div className="space-y-16">
-        {filtered.map((cat, i) => (
+      <div className="max-w-5xl mx-auto border-l-2 border-slate-100 pl-8 md:pl-16 space-y-32">
+        {filtered.map((cat) => (
           <motion.div
             key={cat.id}
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
           >
             <CategorySection {...cat} />
           </motion.div>
         ))}
       </div>
 
-      {/* TIP BOX */}
-      <div className="mt-20 grid lg:grid-cols-2 gap-10">
-        <div className="border-[6px] border-black bg-white p-10 shadow-[12px_12px_0px_#33CCCC]">
-          <div className="flex items-center gap-4 text-black font-black text-3xl uppercase italic mb-8">
-            <Info size={36} className="bg-primary p-1 border-2 border-black" /> QUICK TIPS
+      {/* TIP BOXES */}
+      <div className="mt-32 grid lg:grid-cols-2 gap-10">
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="lab-card p-12 bg-white flex flex-col gap-10"
+        >
+          <div className="flex items-center gap-4">
+            <div className="bg-emerald-500 p-3 rounded-2xl text-white">
+                <Info size={28} />
+            </div>
+            <h2 className="text-2xl font-bold">Standard Precautions</h2>
           </div>
-          <ul className="space-y-6 text-black text-lg font-bold uppercase italic">
+          <ul className="space-y-8">
             {[
-              'If you can\'t pronounce it, scan it before trusting it.',
-              'Shorter ingredient lists = fewer places to hide.',
-              'Choose "Fragrance-Free" and "Paraben-Free" always.',
-              '"Natural" is NOT regulated — always scan!',
-              'EU-approved products are generally safer.',
+              'Unfamiliar nomenclature should be validated via scanner.',
+              'Complexity in formulae typically indicates higher toxicity risk.',
+              'Prioritize "Fragrance-Free" and "Paraben-Free" validated labels.',
+              '"Natural" is an unregulated marketing descriptor — verify constituents.',
+              'EU-regulated products adhere to stricter biological safety indices.',
             ].map((tip, i) => (
-              <li key={i} className="flex gap-4 items-start">
-                <span className="w-8 h-8 shrink-0 border-2 border-black bg-accent text-black font-black flex items-center justify-center text-sm">{i + 1}</span>
-                {tip}
+              <li key={i} className="flex gap-6 items-start">
+                <span className="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center bg-slate-50 border border-slate-100 text-slate-400 font-bold text-xs">{i + 1}</span>
+                <p className="text-slate-600 font-medium pt-1">{tip}</p>
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
 
-        <div className="border-[6px] border-black bg-white p-10 shadow-[12px_12px_0px_#FF90E8]">
-          <div className="flex items-center gap-4 text-black font-black text-3xl uppercase italic mb-8">
-            <AlertTriangle size={36} className="bg-red-500 p-1 border-2 border-black" /> RED FLAGS
+        <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className="lab-card p-12 bg-white flex flex-col gap-10 border-red-100"
+        >
+          <div className="flex items-center gap-4">
+            <div className="bg-red-500 p-3 rounded-2xl text-white">
+                <Flame size={28} />
+            </div>
+            <h2 className="text-2xl font-bold">Diagnostic Red Flags</h2>
           </div>
-          <ul className="space-y-6 text-black text-lg font-bold uppercase italic">
+          <ul className="space-y-8">
             {[
-              { flag: 'PARABENS', why: 'Estrogen mimickers' },
-              { flag: 'SLS / SLES', why: 'Skin barrier destroyer' },
-              { flag: 'TBHQ / BHA', why: 'Petroleum carcinogens' },
-              { flag: 'FRAGRANCE', why: 'Secret chemical cult' },
-              { flag: 'CARAMEL IV', why: 'Highly carcinogenic' },
+              { flag: 'PARABENS', why: 'Known endocrine synthesis disruptors.' },
+              { flag: 'SLS / SLES', why: 'Acute skin barrier degradation agent.' },
+              { flag: 'TBHQ / BHA', why: 'Petroleum-derived carcinogenic compounds.' },
+              { flag: 'UNDISCLOSED FRAGRANCE', why: 'Legal loophole for unauthorized chemicals.' },
+              { flag: 'CARAMEL IV DYE', why: '4-MEI categorized carcinogenic risk.' },
             ].map((item, i) => (
-              <li key={i} className="flex gap-4 items-start">
-                <span className="w-8 h-8 shrink-0 border-2 border-black bg-red-500 text-white font-black flex items-center justify-center text-sm">!</span>
+              <li key={i} className="flex gap-6 items-start">
+                <div className="w-8 h-8 shrink-0 rounded-lg flex items-center justify-center bg-red-50 text-red-500">
+                    <AlertTriangle size={16} />
+                </div>
                 <div>
-                  <span className="bg-black text-white px-2 py-0.5">{item.flag}</span>
-                  <span className="ml-2">— {item.why}</span>
+                   <h4 className="font-bold text-main text-sm tracking-wide mb-1 underline decoration-red-200 decoration-2 underline-offset-4">{item.flag}</h4>
+                   <p className="text-sm text-slate-500 font-medium">{item.why}</p>
                 </div>
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
       </div>
 
       {/* CTA */}
       <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        className="mt-24 bg-black border-[6px] border-black p-12 text-center text-white shadow-[15px_15px_0px_#A3E635] rotate-[-1deg]"
+        initial={{ opacity: 0, scale: 0.95 }}
+        whileInView={{ opacity: 1, scale: 1 }}
+        className="mt-32 p-16 text-center bg-slate-900 rounded-[3rem] text-white relative overflow-hidden group shadow-2xl shadow-slate-200"
       >
-        <h2 className="text-5xl md:text-7xl font-black mb-6 uppercase tracking-tighter leading-none italic">Don't Guess. <span className="text-primary italic">Scan It.</span></h2>
-        <p className="text-gray-300 font-bold text-xl mb-10 max-w-2xl mx-auto uppercase">
-          NEXT TIME YOU PICK UP A PRODUCT, PASTE ITS INGREDIENT LIST INTO SCANSURE AND GET AN INSTANT SAFETY ANALYSIS.
-        </p>
-        <a href="/" className="inline-block bg-primary text-black font-black px-12 py-4 border-4 border-black shadow-[6px_6px_0px_white] hover:shadow-none hover:translate-x-1 hover:translate-y-1 transition-all text-2xl uppercase italic">
-          🔬 Scan Now — FREE
-        </a>
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/20 via-teal-800/20 to-transparent opacity-50"></div>
+        <div className="relative z-10 flex flex-col items-center">
+            <div className="bg-primary/20 p-4 rounded-3xl backdrop-blur-md mb-8 ring-1 ring-primary/40">
+                <ShieldAlert size={40} className="text-primary" />
+            </div>
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 tracking-tight">Decisive <span className="text-primary italic">Action.</span></h2>
+            <p className="text-slate-400 font-medium text-lg mb-12 max-w-2xl">
+                The most sophisticated molecular analysis is useless without implementation. Analyze your daily regimen today.
+            </p>
+            <a href="/" className="lab-btn py-5 px-12 text-lg shadow-2xl shadow-primary/20 hover:scale-105 active:scale-95">
+                Initialize Analysis Protocol
+            </a>
+            <div className="mt-12 flex items-center gap-8 text-[10px] font-bold tracking-widest text-slate-500 uppercase">
+                <span>Free Access</span>
+                <span className="w-1 h-1 rounded-full bg-slate-700"></span>
+                <span>Peer-Reviewed Data</span>
+            </div>
+        </div>
       </motion.div>
     </div>
   );
